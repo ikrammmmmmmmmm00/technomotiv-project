@@ -1,0 +1,260 @@
+
+/* hero_section */
+
+.hero_section{
+    margin-top: 39px;
+}
+.hero_section .carousel-indicators [data-bs-target]{
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    opacity: 0.;
+}
+
+.carousel-control-prev{
+    opacity: 1.0;
+}
+.carousel-control-next{
+    opacity: 1.0;
+}
+.carousel{
+    position: relative;
+}
+.carousel-item h5{
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 48px;
+    color: #FFFFFF;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+/* hero_section ends */
+
+.headings{
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+    color: #000000;
+}
+.hr_line{
+    height: 1px ;
+    background-color: rgba(41, 170, 225, 0.50);
+    margin: 0px;
+}
+
+/* section_2 */
+
+.section_2{
+    margin-top: 46px;
+    margin-bottom: 65px;
+}
+.section_2 .all_searches{
+    margin-top: 46px;
+}
+.section_2 .search{
+    position: relative;
+}
+.section_2 .search .search_icon{
+    position: absolute;
+    top: 20px;
+    right: 14px;
+    cursor: pointer;
+}
+.section_2 .search .heading_icon{
+    position: absolute;
+    top: 16px;
+    left: 10px;
+}
+.section_2 input{
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 22px;
+    color: #898989;
+    outline: none;
+    border: 1px solid rgba(212, 212, 212, 0.52);
+    padding: 15px 41px;
+    width: 100%;
+}
+.section_2 .selects{
+    margin-top: 43px;
+}
+.section_2 .selects .sc{
+    position: relative;
+}
+
+.section_2 .selects img{
+    position: absolute;
+    top: 14px;
+    left: 22px;
+}
+.section_2 .selects select{
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 22px;
+    color: #898989;
+    outline: none;
+    border: 1px solid rgba(212, 212, 212, 0.52);
+    padding: 15px 41px;
+    width: 100%;
+}
+
+.section_2 .bulk_btns{
+    margin-top: 54px;
+}
+
+.section_2 .bulk_btns button{
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    color: #FFFFFF;  
+    background: #29AAE1;
+    border-radius: 5px;  
+    padding: 10px 106px;
+    border: none;
+    outline: none;
+    margin-left: 59px;
+    width: max-content;
+}
+.section_2 .bulk_btns a{
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 22px;
+    text-decoration-line: underline;
+    color: #898989;
+}
+
+/* section_2 ends */
+
+
+/* section_3 */
+
+
+.repair_cards{
+    margin-top: 46px;
+    text-align: center;
+}
+.section_3 .pg_btn{
+    margin: auto;
+    width: 90%;
+}
+.section_3 .repair_cards button{
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    color: #FFFFFF;
+    background: #29AAE1;
+    border-radius: 5px;
+    margin-top: 18px;
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 10px 0px;
+}
+
+/* section_3 ends */
+
+
+/* section_4 */
+
+
+.section_4{
+    margin-top: 55px;
+    margin-bottom: 71px;
+}
+
+.section_4 .navigate_btns img{
+    margin: 0px 5px;
+}
+
+.section_4 .repair_cards .cards_text{
+    margin-top: 18px;
+    text-align: center;
+}
+.section_4 .repair_cards .cards_text h3{
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+    color: #000000;
+}
+.section_4 .repair_cards .cards_text p{
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 22px;
+    text-align: justify;
+    color: rgba(4, 1, 5, 0.53);    
+}
+.section_4 .repair_cards .cards_text a{
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 22px;
+    color: #29AAE1;
+    text-decoration: none;
+}
+
+
+/* Media Quries */
+
+@media (max-width: 767px){
+    .section_2 .search{
+        margin-top: 20px;
+    }
+    .section_2 .selects{
+        margin-top: 0px;
+    }
+    .section_2 .selects .sc{
+        margin-top: 20px;
+    }
+    .section_2 .bulk_btns{
+        margin-top: 0px;
+        text-align: center;
+    }
+    .section_2 .bulk_btns button{
+        display: block;
+        margin: auto;
+        margin-top: 20px;
+    }
+    .section_2 .bulk_btns a{
+        display: block;
+        margin-top: 20px;
+    }
+    .search_cls{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .carousel-item h5{
+        font-size: 16px;
+        line-height: inherit;
+    }
+    .section_3 .repair_cards button{
+        margin-bottom: 20px;
+    }
+    .section_4 .repair_cards .rc{
+        margin-bottom: 20px;
+    }
+    .section_4 .repair_cards .rc p{
+        width: 75%;
+        margin: auto;
+        margin-bottom: 10px !important;
+    }
+}
+
+@media (max-width: 575px){
+    .carousel-indicators{
+        display: none !important;
+    }
+}
+
+
+@media (max-width: 380px){
+    .section_2 .bulk_btns button{
+        font-size: 15px;
+        padding: 10px 20px;
+    }
+
+}
+
+

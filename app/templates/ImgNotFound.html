@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/product.css' %}">{% endblock css %}
+{% block title %}Img Not Found/Available{% endblock title %}
+
+{% block body %}
+
+<div class="container my-5">
+    <div class="row align-items-center">
+        <div class="col text-center">
+            <img class="img-fluid" style="user-select: none;" src="{% static 'assets/images/picture-not-available.jpg' %}" alt="">
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

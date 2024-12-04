@@ -1,0 +1,87 @@
+
+/* hero_section */
+
+.hero_section{
+    background-image: url(../assets/images/Rectangle\ 2.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+.hs{
+    text-align: center;
+    color: white;
+}
+
+.hs h1{
+    padding-top: 101px;
+}
+
+.hs p{
+    padding-top: 17px;
+    padding-bottom: 78px;
+}
+
+
+
+/* hero_section ends */
+
+/* new_section */
+.product_getted{
+    margin-bottom: 100px;
+}
+.product_getted h3{
+    text-align: center;
+    padding: 15px 0px;
+    background-color: #29AAE1;
+    color: white;
+    margin-top: 20px;
+
+}
+.product_getted .p_detail img{
+    width: 100%;
+}
+
+
+.product_getted table{
+    border: 1px solid #ccc;
+}
+.product_getted th{
+    border-style: none !important;
+}
+td{
+    border-style: none !important;
+}
+.table thead th{
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    text-align: center;
+    background: #ccc; 
+    padding: 12px 15px !important;
+    text-align: start;
+}
+.table tbody td{
+
+    padding: 12px 15px !important;
+    text-align: start;
+}
+.table tbody td h6{
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    display: inline-block;
+    margin: 0px;
+}
+tr th{
+    padding: 12px 15px !important;
+}
+
+.side_table{
+    margin-top: 15px;
+}
+.side_table thead th{
+    text-align: center;
+}
+.side_table tbody td{
+    text-align: center;
+}

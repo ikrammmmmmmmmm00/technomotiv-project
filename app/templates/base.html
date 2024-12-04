@@ -1,0 +1,354 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+
+    {% block css %}{% endblock css %}
+
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+    * {
+        /* border: 1px solid blue; */
+        font-family: 'Poppins';
+        font-style: normal;
+    }
+
+    /* navbar */
+    .nav-link {
+        color: inherit;
+    }
+
+    .nav-link:hover {
+        color: inherit;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 30px;
+        color: #898989 !important;
+        margin-left: 60px;
+        width: max-content;
+    }
+
+    .navbar-light .navbar-nav .nav-link.active,
+    .navbar-light .navbar-nav .show>.nav-link {
+        font-weight: 500;
+        color: #46B105 !important;
+    }
+
+    .search_input{
+        background: none;
+        border: none;
+    }
+    .search_input:hover{
+        background-color: #29AAE1;
+        color: white;
+    }
+
+    /* navbar ends*/
+
+
+
+    /* footer */
+
+
+    footer h3 {
+        background-color: #484848;
+        color: #ffffff;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 30px;
+        text-align: center;
+        margin-bottom: 0px;
+    }
+
+    .f_logo {
+        margin-top: 20px;
+    }
+
+    footer p {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 22px;
+        color: #898989;
+    }
+
+    footer p a {
+        text-decoration: none;
+    }
+
+    footer ul {
+        padding: 0px !important;
+    }
+
+    footer ul li {
+        list-style: none;
+        text-align: center;
+        margin-top: 20px;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 30px;
+        color: #898989;
+    }
+
+    footer ul li a.active {
+        color: #46B105;
+    }
+
+    footer h5 {
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 30px;
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    footer .copyright {
+        background-color: #484848;
+    }
+
+    footer .copyright p {
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 30px;
+        text-align: center;
+        color: #FFFFFF;
+        padding: 13px 0px;
+        margin-bottom: 0px;
+    }
+
+    footer .social_media {
+        text-align: center;
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+
+    footer .social_media i {
+        color: #FFFFFF;
+        padding: 10px;
+        border-radius: 6px;
+        font-size: 25px;
+        background-color: #3b5998;
+    }
+
+    tr:hover {
+        cursor: pointer;
+        background-color: #ccc;
+    }
+
+    /* footer ends */
+
+
+
+    /* Media Quries */
+
+
+    @media (min-width: 768px) {
+        footer .col-md-3 {
+            flex: 0 0 auto;
+            width: 28%;
+        }
+    }
+
+
+    /* Media Quries ends*/
+
+    .main_menu {
+        width: 100%;
+        background: #fff;
+        padding: 15px;
+        animation-duration: 0.3s;
+    }
+
+    .main_ul .main_headings_li {
+        color: #2b2b2b !important;
+        font-size: 17px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid #6b9a2f;
+
+    }
+    .dropdown-menu{
+        padding: 0px;
+    }
+    ol ol,
+    ol ul,
+    ul ol,
+    ul ul {
+        margin-bottom: 0;
+        list-style: none;
+        padding: 0px;
+    }
+</style>
+
+<body>
+
+    <!-- navbar -->
+
+    <nav class="navbar navbar-expand-lg navbar-light" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'products:index' %}"><img
+                    src=" {% static 'assets/images/TECHNO-MOTIV-FINAL-with-font-vect-reversed 1.png' %}" alt=""></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    {% url 'products:index' as index %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == index %} active {% endif %}" aria-current="page"
+                            href="{% url 'products:index' %}">Home</a>
+                    </li>
+                    {% url 'products:products' as products %}
+                    <li class="nav-item">
+                        <div class="menu_container">
+                            <a class="nav-link dropdown-toggle {% if request.path == products %} active {% endif %}"
+                                href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Products
+                            </a>
+                            <div class="dropdown-menu sub_container w-100">
+                                <ul class="" aria-labelledby="navbarDropdown">
+                                    <div class="row w-100">
+                                        {% for main_group in main_groups %}
+                                            <div class="col-lg-4">
+                                                <li>
+                                                    <form action="" method="get" class="main_menu">
+                                                        <ul class="main_ul">
+                                                            <li class="main_headings_li">
+                                                                {{main_group}}
+                                                            </li>
+                                                            <li>
+                                                                <ul>
+                                                                    {% for product_group in product_groups %}
+                                                                        {% if product_group.main_pg.id == main_group.id %}
+                                                                            <li>
+                                                                                <input class="search_input" type="submit" name="nav_search" value="{{product_group}}" placeholder="{{product_group}}">
+
+                                                                            </li>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </form>
+                                                </li>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </ul>
+                            </div>
+
+                        </div>
+
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Quality</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About Us</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact Us</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- navbar ends-->
+
+
+    {% block body %}{% endblock body %}
+
+
+    <!-- footer -->
+
+    <footer style="margin-top: 100px;">
+        <div class="container-fluid" style="box-shadow: 0px -4px 4px rgba(158, 158, 158, 0.25);">
+            <div class="row justify-content-center" style="padding-top: 50px;">
+                <div class="col-11 col-md-3">
+                    <h3>Contact Us</h3>
+                    <div class="f_logo text-center">
+                        <img class="m-auto"
+                            src="{% static 'assets/images/TECHNO-MOTIV-FINAL-with-font-vect-reversed 1.png' %}" alt="">
+                    </div>
+                    <p style="margin-top: 30px;">Zu. Lot No2 Ahmed Zabana</p>
+                    <p>42015 - Douaouda ( wilaya de Tipaza )- ALGERIC</p>
+                    <p>Tel : +213 24 30 84 98/99</p>
+                    <p>Email : <a href="">info@technomotiv.com</a></p>
+                    <div class="social_media">
+                        <i class="fa-brands fa-facebook"></i>
+                        <i class="fa-brands fa-twitter" style="background-color: #1da1f2;"></i>
+                        <i class="fa-brands fa-youtube" style="background-color: #cd201f;"></i>
+                    </div>
+                </div>
+                <div class="col-11 col-md-3">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        {% url 'products:index' as index %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == index %} active {% endif %}" aria-current="page"
+                                href="{% url 'products:index' %}">Home</a>
+                        </li>
+                        {% url 'products:products' as products %}
+                        <li>
+                            <a class="nav-link {% if request.path == products %} active {% endif %}"
+                                href="{% url 'products:products' %}">New Products</a>
+                        </li>
+                        <li>Quality</li>
+                        <li>About Us</li>
+                        <li>Contact Us</li>
+                    </ul>
+                </div>
+                <div class="col-11 col-md-3">
+                    <h3>View our Catalogue</h3>
+                    <h5>Steering & Suspension Parts</h5>
+                    <div class="f_logo text-center">
+                        <img class="m-auto"
+                            src="{% static 'assets/images/TECHNO-MOTIV-FINAL-with-font-vect-reversed 1.png' %}" alt="">
+                    </div>
+                    <h5>024 30 84 98</h5>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>Copyright c 2022 TECHNOMOTIV | All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- footer ends -->
+
+
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+
+    {% block newScripts %}{% endblock newScripts %}
+
+</body>
+
+</html>

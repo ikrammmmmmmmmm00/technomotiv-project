@@ -1,0 +1,179 @@
+*{
+    /* border: 1px solid blue; */
+}
+.section_2 h1{
+    font-size: 33px;
+    font-weight: 600;
+}
+
+.section_2 .compare_titles{
+    width: 250px;
+}
+
+.section_2 tr:hover {
+    cursor: pointer;
+    background-color: transparent !important;
+}
+.section_2 p{
+    margin-bottom: 8px !important;
+}
+
+.section_2 .pro_table img{
+    height: 150px;
+}
+.section_2 .pro_table td{
+    padding: 15px !important;
+}
+
+.colored_td{
+    background-color: #ccc !important;
+    font-weight: 600;
+}
+.section_2 td.colored_td{
+    text-align: left;
+}
+.section_2 .back a{
+    color: #FFFFFF;
+}
+.section_2 .back button{
+    margin-top: 15px;
+    background: #29AAE1;
+    padding: 10px 15px 9px;
+    height: 45px;
+    box-shadow: 0 0px 6px #208cbbb6;
+    color: #FFFFFF;
+    border: none;
+}
+.quick_add_btn{
+    background: #29AAE1;
+    padding: 10px 15px 9px;
+    height: 45px;
+    color: #FFFFFF;
+    border: none;
+    margin-bottom: 5px;
+}
+.inquiry_btns button{
+    font-weight: 400;
+    color: #FFFFFF;
+    background: #29AAE1;
+    padding: 5px 10px;
+    border: none;
+    outline: none;
+    margin: 0px 4px;
+    width: max-content;
+}
+.inq_quick_add input{
+    border-radius: 0px;
+    border: 1px solid #ccc;
+    outline: none;
+    padding: 5px;
+}
+.clear_list_form{
+    display: inline-block;
+    margin-left: 5px;
+}
+.add_new_item{
+    padding: 11px 20px;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    outline: none;
+}
+.back form{
+    display: inline-block;
+    text-align: center !important;
+}
+
+.inquiry_page .clear_list_and_back{
+    border: none;
+    outline: none;
+    background-color: #29AAE1;
+    color: #fff;
+    padding: 6px 15px;
+}
+
+.compare_page .clear_list_and_back{
+    margin-top: 15px;
+    background: #29AAE1;
+    padding: 10px 15px 9px;
+    height: 45px;
+    box-shadow: 0 0px 6px #208cbbb6;
+    color: #FFFFFF;
+    border: none;
+}
+
+
+
+/* Inquiry lists */
+
+.pro_table td {
+    border-left: 1px solid #dadada;
+    border-bottom: 1px solid #dadada;
+    font-size: 15px;
+    vertical-align: middle;
+}
+.quantity{
+    width: max-content;
+    margin: auto;
+}
+
+.quantity button{
+    color: #fff;
+    border: none;
+    background-color: #29AAE1;
+}
+.quantity i{
+    font-size: 14px;
+}
+.quantity input{
+    width: 40px;
+    border: 1px solid #29AAE1;
+    padding: 0px 3px;
+    outline: none;
+    text-align: center;
+}
+.quantity .decrement{
+    position: relative;
+    left: 4px;
+}
+.quantity .increment{
+    position: relative;
+    right: 4px;
+}
+
+.inq_quick_add button{
+    border: none;
+    outline: none;
+    background-color: #29AAE1;
+    color: #fff;
+    padding: 6px;
+}
+.inquiry_btns form{
+    display: contents;
+}
+.remove_btn{
+    border: none;
+    background-color: #f40000;
+    color: #fff;
+    border-radius: 4px;
+    margin-top: 5px;
+    padding: 3px 10px;
+}
+@media (max-width: 767px){
+    .inquiry_btns{
+        margin-top: 10px;
+    }
+
+}
+
+
+/* Inquiry lists */

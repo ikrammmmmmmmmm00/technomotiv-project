@@ -1,0 +1,732 @@
+{% extends "base.html" %}
+{% load static %} 
+
+
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+{% endblock css %}
+{% block title %}New Products{% endblock title %}
+
+{% block body %}
+
+
+<!-- hero_section -->
+
+<section class="hero_section">
+
+    <div class="container">
+        <div class="hs">
+            <h1>Technomotiv Catalog</h1>
+            <p>Home >> Catalog >> Suspension Control Arm & Ball Joint Assembly</p>
+            <img src="https://technomotiv-images.s3.ca-central-1.amazonaws.com/9.png" width="59" height="44" alt="{{ product.ref_no }}" />
+           
+
+        </div>
+    </div>
+</section>
+
+<!-- hero_section ends-->
+
+
+<!-- section_2 -->
+{% comment %} <div class="row justify-content-center selects">
+                <div class="col-11 col-md-6 sc">
+                    <img src="{% static 'assets/images/minor_crash.png' %}" alt="">
+                    <select class="form-select" aria-label="Make" name="make" onchange="this.form.submit()">
+                        <option value="" disabled {% if not search_4 %} selected {% endif %}>Make</option>
+                        {% for make in all_makes %}
+                            <option value="{{ make.name }}" {% if search_4 == make.name %} selected {% endif %}>{{ make.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-11 col-md-6 sc">
+                    <img src="{% static 'assets/images/join_inner.png' %}" alt="">
+                    <select class="form-select" aria-label="Default select example" name="model" onchange="this.form.submit()">
+                        <option value="" disabled {% if not search_5 %} selected {% endif %}>Product Group</option>  
+                        {% for pro_group in all_pro_groups %}
+                            <option value="{{ pro_group.desc }}" {% if search_5 == pro_group.desc %} selected {% endif %}>{{ pro_group.desc }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div> {% endcomment %}
+
+
+<section class="section_2">
+    <div class="container">
+        <form action="" method="get">
+            {% comment %} <div class="row justify-content-center all_searches">              
+                <div class="col-11 col-md-4">
+                    <div class="search">
+                        <img class="heading_icon" src="{% static 'assets/images/123.png' %}" alt="">
+                        <input class="search_input" type="text" name="ref_no" value="{{search_2}}" placeholder="Technomotiv Ref No.">
+                        <img class="search_icon" src="{% static 'assets/images/search.png' %}" alt="">
+                    </div>
+                </div>
+                <div class="col-11 col-md-4">
+                    <div class="search">
+                        <input class="search_input" type="text" name="oem_code" value="{{search_1}}" placeholder="# OEM Code"
+                            style="padding-left: 20px;">
+                        <img class="search_icon" src="{% static 'assets/images/search.png' %}" alt="">
+                    </div>
+                </div>
+                <div class="col-11 col-md-4">
+                    <div class="search">
+                        <img class="heading_icon" src="{% static 'assets/images/subtitles.png' %}" alt="">
+                        <input class="search_input" type="text" name="cross_code" value="{{search_3}}" placeholder="Cross Code">
+                        <img class="search_icon" src="{% static 'assets/images/search.png' %}" alt="">
+                    </div>
+                </div>
+            </div> {% endcomment %}
+            <div class="row justify-content-center selects">
+                <!-- Make Dropdown -->
+                <form id="filterForm" method="GET">
+                    <div class="col-11 col-md-6 sc">
+                        <img src="{% static 'assets/images/minor_crash.png' %}" alt="">
+                        <select
+                            class="form-select"
+                            name="make"
+                            id="makeDropdown"
+                            onchange="document.getElementById('filterForm').submit()"
+                        >
+                            <option value="" disabled {% if not search_4 %} selected {% endif %}>Make</option>
+                            {% for make in all_makes %}
+                                <option value="{{ make.name }}" {% if search_4 == make.name %} selected {% endif %}>
+                                    {{ make.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </form>
+                
+                
+                
+            
+                <!-- Model Dropdown -->
+                <div class="col-11 col-md-6 sc">
+                    <img src="{% static 'assets/images/join_inner.png' %}" alt="">
+                    <select class="form-select" name="model" id="modelDropdown" onchange="fetchYears()">
+                        <option value="" disabled selected>Select Model</option>
+                    </select>
+                </div>
+           
+            
+              <div class="row justify-content-center">
+                  <!-- Year Dropdown -->
+                  <div class="col-11 col-md-6 sc">
+                      <img src="{% static 'assets/images/join_inner.png' %}" alt="">
+                      <select class="form-select" name="year_body_type" id="yearDropdown">
+                          <option value="" disabled selected>Select Year/Body Type</option>
+                      </select>
+                  </div>
+              </div>
+          </div>
+            
+            
+            {% comment %} <div class="row justify-content-center selects">
+                <div class="col-11 col-md-6 sc">
+                    <img src="{% static 'assets/images/minor_crash.png' %}" alt="">
+                    <select class="form-select" aria-label="Make" name="make" id="makeDropdown" onchange="this.form.submit()" >
+                      <option value="" disabled {% if not search_4 %} selected {% endif %}>Make</option>
+                        {% for make in all_makes %}
+                      <option value="{{ make.name }}" {% if search_4 == make.name %} selected {% endif %}>{{ make.name }}</option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+                <div class="col-11 col-md-6 sc">
+                    <img src="{% static 'assets/images/join_inner.png' %}" alt="">
+                    <select class="form-select" aria-label="Default select example" name="model_group" onchange="this.form.submit()">
+                        <option value="" disabled {% if not search_5 %} selected {% endif %}>Product Group</option>
+                        {% for pro_group in all_pro_groups %}
+                            <option value="{{ pro_group.desc }}" {% if search_5 == pro_group.desc %} selected {% endif %}>{{ pro_group.desc }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Hidden div -->
+            
+    
+<div id="dynamic-selects" >
+    <div class="col-11 col-md-6 sc">
+        <img src="{% static 'assets/images/join_inner.png' %}" alt="">
+        <select class="form-select" id="model-select" name="model" id="model-select" onchange="this.form.submit()">
+            <option value="" disabled selected>Select Model</option>
+        </select>
+    </div>
+    <div class="col-11 col-md-6 sc">
+        <img src="{% static 'assets/images/join_inner.png' %}" alt="">
+        <select class="form-select" id="year-body-type-select" name="year_body_type"  onchange="this.form.submit()" >
+            <option value=""  selected>Select Year/Body Type</option>
+        </select>
+    </div>
+</div> {% endcomment %}
+
+            
+            <input type="hidden" value="{{ comparison_ids }}" class="hidden_ids" name="comparison_ids">
+            <input type="hidden" class="inquiry_ids" value="{{ inquiry_ids }}" name="inquiry_ids">
+            <div class="row justify-content-evenly bulk_btns">
+                <div class="col-auto text-center">
+                    <button type="submit">Search</button>
+                    <a href="{% url 'products:products' %}" class="m-0"><button type="button">Clear Search</button></a>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="section_3">
+   
+
+    <div class="container">
+        <div class="row table-responsive">
+           
+
+
+            <table id="main_table" class="table table-bordered table">
+                <thead>
+                    <tr>
+                        <th scope="col">Product Image</th>
+                        <th scope="col">Technomotive Ref No</th>
+                        <th scope="col">Product Group</th>
+                        <th scope="col">Make</th>
+                        <th scope="col">Model</th>
+                        <th scope="col">Year & Body Type</th>
+                        <th scope="col">Position</th>
+                        <th scope="col">OEM Code</th>
+                        <th scope="col">Compare Inquiry List</th>
+                    </tr>
+                </thead>
+
+                {% comment %} <tbody class="text-center pro_table" id="tbody_products">
+                    {% for product in all_products %} 
+                        {% with filtered_ref_details|dictsort:"product_id" as sorted_details %}
+                            {% for detail in sorted_details %}
+                                {% if detail.product_id == product.id %}
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'products:product_details' product.ref_no %}">
+                                                <img src="{{ product.product_img }}" width="59" height="44" alt="{{ product.ref_no }}" />
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'products:product_details' product.ref_no %}">{{ product.ref_no }}</a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'products:product_details' product.ref_no %}">{{ product.product_group.desc }}</a>
+                                        </td>
+                                        <td>{{ detail.make.name }}</td>
+                                        <td>{{ detail.model.name }}</td>
+                                        <td>{{ detail.year_body_type }}</td>
+                                        <td>{{ product.position }}</td>
+                                        <td>{{ product.oem_code }}</td>
+                                        <td>
+                                            <input type="hidden" value="{{ product.id }}" id="item_id">
+                                            <div id="Compare_items">
+                                                <input type="checkbox" value="{{ product.id }}" class="checkie" id="{{ product.id }}">
+                                                <label for="{{ product.id }}">Compare</label>
+                                            </div>
+                                            <div id="inquiry_list">
+                                                <input type="checkbox" value="{{ product.id }}" class="inkie" id="i_{{ product.id }}">
+                                                <label for="i_{{ product.id }}">Inquiry List</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% endwith %}
+                    {% empty %}
+                        <tr>
+                            <td colspan="9" class="text-center">Sorry, We don't have any products</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>    {% endcomment %}
+
+                <tbody class="text-center pro_table" id="tbody_products">
+                    {% for product in all_products %}
+                        {% with filtered_ref_details as sorted_details %}
+                            {% for detail in sorted_details %}
+                                {% if detail.product_id == product.id %}
+                                    <tr>
+                                        <td>
+                                            {% comment %} <a href="{% url 'products:product_details' product.ref_no %}">
+                                                <img src="{{ product.product_img.url }}" width="59" height="44" alt="{{ product.ref_no }}" />
+                                                <p>{{ product.product_img.url }}</p>
+
+                                            </a> {% endcomment %}
+
+                                            <a href="{% url 'products:product_details' product.ref_no %}">
+                                                <img src="{{ product.product_img }}" width="59" height="44" alt="{{ product.ref_no }}" />
+                                            </a>
+                                        </td>
+
+                                        <td>
+                                            <a href="{% url 'products:product_details' product.ref_no %}">{{ product.ref_no }}</a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'products:product_details' product.ref_no %}">{{ product.product_group.desc }}</a>
+                                        </td>
+                                        <td>{{ detail.make.name }}</td>
+                                        <td>{{ detail.model.name }}</td>
+                                        <td>{{ detail.year_body_type }}</td>
+                                        <td>{{ product.position }}</td>
+                                        <td>{{ product.oem_code }}</td>
+                                        <td>
+                                            <input type="hidden" value="{{ product.id }}" id="item_id">
+                                            <div id="Compare_items">
+                                                <input type="checkbox" value="{{ product.id }}" class="checkie" id="{{ product.id }}">
+                                                <label for="{{ product.id }}">Compare</label>
+                                            </div>
+                                            <div id="inquiry_list">
+                                                <input type="checkbox" value="{{ product.id }}" class="inkie" id="i_{{ product.id }}">
+                                                <label for="i_{{ product.id }}">Inquiry List</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% endwith %}
+                    {% empty %}
+                        <tr>
+                            <td colspan="9" class="text-center">Sorry, We don't have any products</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                
+
+            </table>
+        </div>
+    </div>
+</section>
+
+
+ {% comment %} <tbody class="text-center pro_table" id="tbody_products">
+                    {% for product in all_products %}
+                        {% with filtered_ref_details|dictsort:"product_id" as sorted_details %}
+                            {% for detail in sorted_details %}
+                                {% if detail.product_id == product.id %}
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'products:product_details' product.ref_no %}">
+                                                <img src="{{ product.product_img }}" width="59" height="44" alt="{{ product.ref_no }}" />
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'products:product_details' product.ref_no %}">{{ product.ref_no }}</a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'products:product_details' product.ref_no %}">{{ product.product_group.desc }}</a>
+                                        </td>
+                                        <td>{{ detail.make.name }}</td> 
+                                        <td>{{ detail.model.name }}</td> 
+                                        <td>{{ detail.year_body_type }}</td> 
+                                        <td>{{ product.position }}</td>
+                                        <td>{{ product.oem_code }}</td>
+                                        <td>
+                                            <input type="hidden" value="{{ product.id }}" id="item_id">
+                                            <div id="Compare_items">
+                                                <input type="checkbox" value="{{ product.id }}" class="checkie" id="{{ product.id }}">
+                                                <label for="{{ product.id }}">Compare</label>
+                                            </div>
+                                            <div id="inquiry_list">
+                                                <input type="checkbox" value="{{ product.id }}" class="inkie" id="i_{{ product.id }}">
+                                                <label for="i_{{ product.id }}">Inquiry List</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% endwith %}
+                    {% empty %}
+                        <tr>
+                            <td colspan="9" class="text-center">Sorry, We don't have any products</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>  inside teh tbody {% endcomment %}
+
+
+
+
+
+
+
+ {% comment %} <section class="section_3"> 
+    <div class="container">
+        <div class="row table-responsive">
+            <table id="main_table" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Product Image</th>
+                        <th scope="col">Technomotive Ref No</th>
+                        <th scope="col">Product Group</th>
+                        <th scope="col">Make</th>
+                        <th scope="col">Model</th>
+                        <th scope="col">Year & Body Type</th>
+                        <th scope="col">Position</th>
+                        <th scope="col">OEM Code</th>
+                        <th scope="col">Compare Inquiry List</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center pro_table" id="tbody_products">
+                    {% for product in all_products %}
+                    <tr class="text-center">
+                        <td>
+                            <a href="{% url 'products:product_details' product.ref_no %}">
+                                <img src="https://onedrive.live.com/embed?resid=44F02735E1FD0D2B%21254201&authkey=%21AJVFimzzuDIGbtg&width=211&height=121" 
+                                     width="59" 
+                                     height="44" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{% url 'products:product_details' product.ref_no %}">{{ product.ref_no }}</a>
+                        </td>
+                        <td>
+                            <a href="{% url 'products:product_details' product.ref_no %}">{{ product.product_group.desc }}</a>
+                        </td>
+                        <td>
+                            {% if product.ref_details.all %}
+                                <a href="{% url 'products:product_details' product.ref_no %}">{{ product.ref_details.first.make.name }}</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if product.ref_details.all %}
+                                <a href="{% url 'products:product_details' product.ref_no %}">{{ product.ref_details.first.model.name }}</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if product.ref_details.all %}
+                                <a href="{% url 'products:product_details' product.ref_no %}">{{ product.ref_details.first.year_body_type }}</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'products:product_details' product.ref_no %}">{{ product.position }}</a>
+                        </td>
+                        <td>
+                            <a href="{% url 'products:product_details' product.ref_no %}">{{ product.oem_code }}</a>
+                        </td>
+                      
+                        <td>
+                            <input type="hidden" value="{{ product.id }}" id="item_id">
+                            <div id="Compare_items">
+                                <input type="checkbox" value="{{ product.id }}" class="checkie" id="{{ product.id }}">
+                                <label for="{{ product.id }}">Compare</label>
+                            </div>
+                            <div id="inquiry_list">
+                                <input type="checkbox" value="{{ product.id }}" class="inkie" id="i_{{ product.id }}">
+                                <label for="i_{{ product.id }}">Inquiry List</label>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                        <h3 class="text-center">Sorry, We don't Have this Item</h3>
+                    {% endfor %}
+                </tbody>  
+
+                
+                
+                
+            </table>
+        </div>
+    </div>
+</section>  {% endcomment %}
+
+ 
+
+
+
+
+
+
+<!-- section_3 ends -->
+
+<div class="showornot">
+    <form action="{% url 'products:compare_items' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" class="hidden_ids" value="{{comparison_ids}}" name="comparison_ids">
+        <button class="compare_btn" type="submit">Comparison List <span class="compare_len_btn"></span></button>
+    </form>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="hidden" class="inquiry_ids" value="{{inquiry_ids}}" name="inquiry_ids">
+        <input type="hidden" class="hidden_ids" value="{{comparison_ids}}" name="checking_comp_ids_in_inquiry"> 
+        <button class="inquiry_btn" type="submit">Inquiry List <span class="inquiry_len_btn"></span></button>
+
+    </form>
+</div>
+
+
+<!-- section_4 -->
+
+{% comment %} <section class="section_4">
+    <div class="container">
+        <div class="row">
+            <div class="col-11 col-sm-12">
+                <h1>Suspension Control Arm and Ball Joint Assembly</h1>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur. Morbi malesuada eu vitae laoreet. Pellentesque eget sed orci
+                    id viverra egestas proin nulla pulvinar. Integer venenatis volutpat sollicitudin aliquet interdum
+                    amet integer dui blandit. Lacus molestie nibh ornare neque arcu ultrices dictumst ornare semper.
+                    Egestas diam lectus sagittis hendrerit eget et viverra iaculis eros. Nullam enim sed semper mollis
+                    maecenas libero. Amet augue et donec pulvinar amet aliquam suspendisse. Augue purus sed leo
+                    tristique scelerisque mattis enim nulla.
+                </p>
+                <p>
+                    Vitae est praesent facilisis lectus amet nam mauris laoreet netus. Semper diam id nisl diam mattis.
+                    Tristique quis imperdiet morbi mi tellus in ut aliquam. Elementum eget placerat senectus semper.
+                    Habitant neque eu aliquam velit vehicula suspendisse. Et vel adipiscing urna odio turpis. Sagittis
+                    sollicitudin pellentesque porttitor eget orci sit. Proin facilisis bibendum fusce ultricies morbi in
+                    at lacus. Elementum ultricies penatibus euismod id ipsum malesuada amet. Egestas arcu senectus sit
+                    vel. Eu eget et venenatis id pharetra at in. Tincidunt volutpat enim ridiculus proin odio
+                    pellentesque arcu ullamcorper tristique.
+                </p>
+                <p>
+                    Accumsan tincidunt nibh nibh facilisis ut consectetur. Ut purus tempor est congue platea cras. Nunc
+                    id nascetur nisl morbi velit mauris mollis commodo amet. At commodo velit quis blandit dui. Sit ac
+                    metus nunc cursus elementum vulputate mi. Nunc curabitur nullam nunc ut. Viverra maecenas odio at
+                    tincidunt lorem dolor morbi. Ultrices nunc platea augue vitae nisi.
+                </p>
+                <p>
+                    Hac aliquam ornare convallis commodo fermentum venenatis in sapien a. Morbi in sit in eu congue dui
+                    odio viverra. Scelerisque ipsum scelerisque velit consectetur a fames interdum dictum. Nam
+                    suspendisse cum quisque ut risus. Tincidunt elit rhoncus imperdiet ipsum fermentum.
+                </p>
+                <p>
+                    Sit parturient tincidunt semper eget amet. Commodo rhoncus elit velit id natoque ac sed odio sit.
+                    Suspendisse viverra vestibulum ornare consequat justo mauris. Elit pellentesque blandit tellus nunc
+                    magna. Pellentesque massa nibh mattis faucibus libero mi. Purus sit vulputate pharetra vulputate.
+                    Auctor venenatis pretium turpis massa venenatis pellentesque. Nisl cursus orci lectus at elementum.
+                    Ac consequat tortor facilisis auctor eget faucibus mi. Ut ipsum consequat dignissim lacus. Fames
+                    feugiat facilisis nunc vehicula. Turpis nec nunc laoreet a sit tempor purus nibh vivamus.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>  {% endcomment %}
+
+<!-- section_4 ends -->
+
+
+
+
+
+<!-- <script>
+        
+    $('#tbody_products').on('click', '#compare-item', function(){
+
+        var product_id = $(this).parent().siblings('#item_id').val()
+        console.log(product_id)
+        if ($(this).is(":checked")) {
+            $(this).val("True");
+        } else {
+            $(this).val("False");
+        }
+
+        let checkbox_val = $(this).val()
+        let datalist = {'checkbox_val':checkbox_val,'product_id':product_id }
+
+        $.ajax({
+            url:`compare_checkbox`,
+            data:datalist,
+            type: "POST",
+            success: function (data) {
+                if(data.success == "saved"){
+                    console.log('data successfull')
+                }
+            },
+        });
+    })
+</script> -->
+
+
+{% endblock body %}
+
+{% block newScripts %}
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+<script src="{% static 'js/initializeCheckboxesFromLocalStorage.js' %}"></script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const makeDropdown = document.getElementById('makeDropdown');
+        if (makeDropdown) {
+            makeDropdown.addEventListener('change', function () {
+                const form = document.getElementById('filterForm');
+                if (form) {
+                    form.submit();
+                }
+            });
+        } else {
+            console.error("Make dropdown not found.");
+        }
+    });
+    
+    $(document).ready(function () {
+        $('#main_table').DataTable()
+    });
+    
+
+      function onLoadd() {
+        a = $('.hidden_ids').val()
+        $('.compare_len_btn').html(a.split(",").length)
+        if (a.length > 0){
+            $('.compare_btn').css('display', 'block')
+        } else {
+            $('.compare_btn').css('display', 'none')
+        }
+      }
+      
+    $(window).on('load change', onLoadd);
+
+    let InquiryIds = JSON.parse(localStorage.getItem('InquiryIds')) || [];
+
+    $(document).ready(function () {
+        // Retrieve stored InquiryIds from local storage or initialize an empty array
+        let InquiryIds = JSON.parse(localStorage.getItem('InquiryIds')) || [];
+    
+        // Update the UI with the length of InquiryIds
+        updateInquiryLen(InquiryIds);
+    
+        // Function to update the length of InquiryIds in the UI
+        function updateInquiryLen(ids) {
+            $('.inquiry_ids').val(ids.join(","));
+            $('.inquiry_len_btn').html(ids.length);
+        }
+    
+        // Function to handle checkbox change
+        $('.inkie').change(function () {
+            const check = $(this).is(':checked');
+            const id = $(this).attr('id').replace('i_', '');
+    
+            if (check) {
+                InquiryIds.push(id);
+            } else {
+                const index = InquiryIds.indexOf(id);
+                if (index !== -1) {
+                    InquiryIds.splice(index, 1);
+                }
+            }
+    
+            // Store InquiryIds in local storage
+            localStorage.setItem('InquiryIds', JSON.stringify(InquiryIds));
+    
+            // Update the UI
+            updateInquiryLen(InquiryIds);
+        });
+    });
+        
+    function onLoaddInq() {
+        a = $('.inquiry_ids').val()
+        if (a.length > 0){
+            $('.inquiry_btn').css('display', 'block');
+        } else {
+            $('.inquiry_btn').css('display', 'none');
+        }
+      }
+
+    $(window).on('load change', onLoaddInq);
+
+    $(document).ready(function() { 
+        $('#main_table').DataTable();
+    });
+   
+
+
+    {% comment %} ikram {% endcomment %}
+    
+    function fetchModels() {
+        const makeId = document.getElementById("makeDropdown").value;
+        const modelDropdown = document.getElementById("modelDropdown");
+        const yearDropdown = document.getElementById("yearDropdown");
+    
+        // Clear existing options
+        modelDropdown.innerHTML = '<option value="" disabled selected>Loading...</option>';
+        yearDropdown.innerHTML = '<option value="" disabled selected>Select Year/Body Type</option>';
+    
+        fetch(`/get-models/${makeId}/`)
+            .then(response => response.json())
+            .then(data => {
+                modelDropdown.innerHTML = '<option value="" disabled selected>Select Model</option>';
+                data.models.forEach(model => {
+                    modelDropdown.innerHTML += `<option value="${model.id}">${model.name}</option>`;
+                });
+            })
+            .catch(error => console.error("Error fetching models:", error));
+    }
+    
+    function fetchYears() {
+        const modelId = document.getElementById("modelDropdown").value;
+        const yearDropdown = document.getElementById("yearDropdown");
+    
+        yearDropdown.innerHTML = '<option value="" disabled selected>Loading...</option>';
+    
+        fetch(`/get-years/${modelId}/`)
+            .then(response => response.json())
+            .then(data => {
+                yearDropdown.innerHTML = '<option value="" disabled selected>Select Year/Body Type</option>';
+                data.years.forEach(year => {
+                    yearDropdown.innerHTML += `<option value="${year}">${year}</option>`;
+                });
+            })
+            .catch(error => console.error("Error fetching years:", error));
+    }
+
+    
+    
+</script>
+<script>
+    function submitForm() {
+        const form = document.getElementById('filterForm');
+        if (form) {
+            form.submit();
+        } else {
+            console.error("Form with ID 'filterForm' not found.");
+        }
+    }
+</script>
+
+
+<style>
+    .hidden {
+        display: none;
+    }
+    
+    /* pagination */
+    .dataTables_length{
+        margin: 20px 0px !important;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 22px;
+        color: #898989 !important;    
+    }
+    .dataTables_filter{
+        margin: 20px 0px !important;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 22px;
+        color: #898989 !important;
+
+    }
+    .dataTables_filter input{
+        outline: none;
+    }
+    .dataTables_info{
+        margin: 15px 0px !important;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 22px;
+        color: #898989 !important;
+    }
+    .dataTables_paginate{
+        margin: 15px 0px !important;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 22px;
+        color: #898989 !important;
+    }
+    /* pagination */
+</style>
+
+{% endblock newScripts %}

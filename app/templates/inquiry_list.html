@@ -1,0 +1,494 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/comparison_list.css' %}">
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
+{% endblock css %}
+{% block newScripts %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css">
+
+
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
+
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
+{% endblock newScripts %}
+{% block title %}Inquiry Lists{% endblock title %}
+
+{% block body %}
+
+<style>
+    .pro_table td {
+        border-left: 1px solid #dadada;
+        border-bottom: 1px solid #dadada;
+        font-size: 15px;
+        vertical-align: middle;
+
+    }
+
+    .data_con img {
+        height: 100px;
+        width: 100px;
+    }
+
+    .quantity button {
+        color: #fff;
+        border: none;
+        background-color: #29AAE1;
+    }
+
+    .quantity {
+        width: max-content;
+        margin: auto;
+    }
+
+    .quantity i {
+        font-size: 14px;
+    }
+
+    .quantity input {
+        width: 40px;
+        border: 1px solid #29AAE1;
+        padding: 0px 3px;
+        outline: none;
+        text-align: center;
+    }
+
+    .quantity .decrement {
+        position: relative;
+        left: 4px;
+    }
+
+    .quantity .increment {
+        position: relative;
+        right: 4px;
+    }
+
+    .table thead th {
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 22px;
+        text-align: center;
+        color: #FFFFFF;
+        background: #29AAE1;
+        padding: 19px 24px;
+    }
+
+    .head {
+        background-color: #c2c2c240;
+    }
+
+    .head img {
+        margin-top: 30px;
+    }
+
+    .head .site_name h5 {
+        font-family: 'circular';
+        font-weight: 900 !important;
+    }
+
+    .head .site_name {
+        margin-top: 20px;
+        padding-bottom: 20px;
+
+    }
+
+    .pdf_footer {
+        margin-top: 35px;
+    }
+</style>
+
+<section class="hero_section">
+    <div class="container">
+        <div class="hs">
+            <h1>Inquiry List</h1>
+            {{product.product_img.url}}
+            <p>Home » Inquiry List</p>
+        </div>
+    </div>
+</section>
+
+
+
+<div class="section_2" id="pdf_section">
+    <div class="container">
+        <h1 class="pt-2">Inquiry List</h1>
+        <hr>
+        <div class="row justify-content-end mt-4 mb-4">
+            <div class="col-md-auto inquiry_btns">
+                <button id="download_excel">Export To Excel</button>
+                <button id="for_pdf">Export To PDF</button>
+            </div>
+        </div>
+        <div class="row table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col" class="compare_titles">Product Image</th>
+                        <th scope="col" class="compare_titles">TechnoMotiv Ref No</th>
+                        <th scope="col" class="compare_titles">Product Group Position</th>
+                        <th scope="col" class="compare_titles">Compatible Vehicles</th>
+                        <th scope="col" class="compare_titles">OEM Code</th>
+                        <th scope="col" class="compare_titles">Quantity </th>
+                        <th scope="col" class="compare_titles">Compare Inquiry Lists</th>
+                    </tr>
+                </thead>
+                <tbody class="pro_table text-center">
+                    <input type="hidden" value="{{checking_comp_ids_in_inquiry}}" id="all_compare_ids">
+
+                    {% for product in all_products %}
+                    <tr>
+                        <td class="text-center">
+                            <img src="{{product.product_img.url}}" alt="">
+                        </td>
+                        <td>{{product.ref_no}}</td>
+                        <td>{{product.product_group}}<br>{{product.position}}</td>
+                        <td>
+                            {% for component in product.components.all %}
+                            {{component}}<br />
+                            {% endfor %}
+                        </td>
+                        <td>{{product.oem_code}}</td>
+                        <td>
+                            <div class="quantity">
+                                <button class="decrement"><i class="bi bi-dash"></i></button>
+                                <input type="hidden" value="{{forloop.counter}}" id="hidden_input">
+                                <input type="text" value="10" id="default_input">
+                                <button class="increment"><i class="bi bi-plus"></i></button>
+                            </div>
+                        </td>
+                        <td>
+                            <div id="Compare_items">
+                                <input type="checkbox" value="{{product.id}}" class="checkie" id="{{product.id}}">
+                                <label for="{{product.id}}">Compare</label>
+                            </div>
+
+                            <div id="remove_items">
+                                <button type="submit" data-bs-toggle="modal" data-bs-target="#remove_{{product.id}}"
+                                    class="remove_btn">Remove</button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+
+            <!-- Table Excel Form Hidden -->
+
+            <table class="table table-bordered" id="excel_data" hidden>
+                <thead>
+                    <tr>
+                        <th scope="col" class="compare_titles">Product Image</th>
+                        <th scope="col" class="compare_titles">TechnoMotiv Ref No</th>
+                        <th scope="col" class="compare_titles">Product Group Position</th>
+                        <th scope="col" class="compare_titles">Compatible Vehicles</th>
+                        <th scope="col" class="compare_titles">OEM Code</th>
+                        <th scope="col" class="compare_titles">Quantity </th>
+                    </tr>
+                </thead>
+                <tbody class="pro_table text-center">
+                    {% for product in all_products %}
+                    <tr>
+                        <td><a
+                                href="http://127.0.0.1:8000{{product.product_img.url}}">http://127.0.0.1:8000{{product.product_img.url}}</a>
+                        </td>
+                        <td>{{product.ref_no}}</td>
+                        <td>{{product.product_group}}<br />{{product.position}}</td>
+                        <td>{% for component in product.components.all %}{{component}}/{% endfor %}</td>
+                        <td>{{product.oem_code}}</td>
+                        <td>
+                            <div class="getted_num_{{forloop.counter}}">10</div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+
+            <!-- Table Excel Form Hidden -->
+
+
+        </div>
+        <!-- <div class="back text-end">
+            
+           
+        </div> -->
+        <div class="container">
+            <div class="row justify-content-start justify-content-md-end inquiry_page" style="margin-top: 20px;">
+                <div class="col-auto">
+                    <form method="post" class="col-md-auto inq_quick_add">
+                        {% csrf_token %}
+                        <input type="hidden" name="inquiry_ids" value="{{inquiry_ids}}" id="ForLocalStorageInq">
+                        <input type="hidden" value="{{checking_comp_ids_in_inquiry}}" id="all_compare_ids"
+                            name="checking_comp_ids_in_inquiry">
+                        <input type="text" placeholder="TechnoMotiv No" name="inquiry_new_ref"> <button>Quick
+                            add</button>
+                    </form>
+                </div>
+                <div class="col-auto">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Clear List" name="clear_inquiry_list" class="clear_list_and_back">
+                    </form>
+                </div>
+                <div class="col-auto">
+                    <a href="{% url 'products:products' %}"><input class="clear_list_and_back" type="button"
+                            value="Back"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="showornot">
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="hidden" class="hidden_ids" value="{{comparison_ids}}" name="comparison_ids">
+        <button class="compare_btn" type="submit">Comperison List <span class="compare_len_btn"></span></button>
+    </form>
+</div>
+
+
+
+
+<!-- Modal -->
+
+{% for product in all_products %}
+<div class="modal fade" id="remove_{{product.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header justify-content-center">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Do you want to Remove this Item?</h1>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <form action="" method="post" style="display: contents;">
+                    {% csrf_token %}
+                    <input type="hidden" name="inquiry_ids" value="{{inquiry_ids}}">
+                    <input type="hidden" name="product_id" value="{{product.id}}">
+                    <input type="hidden" value="{{checking_comp_ids_in_inquiry}}" id="all_compare_ids"
+                        name="checking_comp_ids_in_inquiry">
+                    <input type="submit" name="to_remove_item" class="btn"
+                        style="background-color: #d81919; color: #fff;" value="Yes">
+                </form>
+                <button type="button" class="btn" style="background-color: #29AAE1; color: #fff;"
+                    data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<!-- Modal -->
+
+
+
+<div class="pdf_con" hidden>
+    <div id="main_for_pdf">
+        <div class="head text-center">
+            <img src="../static/assets/images/TECHNO-MOTIV-FINAL-with-font-vect-reversed 1.png" alt="">
+            <div class="site_name">
+                <h5>TechnoMotiv Inquiry List</h5>
+                <h5 id="date"></h5>
+            </div>
+        </div>
+        <div class="row table-responsive" style="margin-top: 30px;">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col" class="compare_titles">Product Image</th>
+                        <th scope="col" class="compare_titles">TechnoMotiv Ref No</th>
+                        <th scope="col" class="compare_titles">Product Group Position</th>
+                        <th scope="col" class="compare_titles">Compatible Vehicles</th>
+                        <th scope="col" class="compare_titles">OEM Code</th>
+                        <th scope="col" class="compare_titles">Quantity </th>
+                    </tr>
+                </thead>
+                <tbody class="pro_table text-center">
+                    {% for product in all_products %}
+                    <tr>
+                        <td class="text-center data_con">
+                            <img src="{{product.product_img.url}}" alt="">
+                        </td>
+                        <td class="data_con">
+                            <div class="data">
+                                {{product.ref_no}}
+                            </div>
+                        </td>
+                        <td class="data_con">
+                            <div class="data">
+                                {{product.product_group}}<br>{{product.position}}
+                            </div>
+                        </td>
+                        <td class="data_con">
+                            <div class="data">
+                                {% for component in product.components.all %}
+                                {{component}},
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td class="data_con">
+                            <div class="data">
+                                {{product.oem_code}}
+                            </div>
+                        </td>
+                        <td class="data_con">
+                            <div class="getted_num_{{forloop.counter}}">10</div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+
+        </div>
+        <div class="pdf_footer text-center">
+            <img src="../static/assets/images/TECHNO-MOTIV-FINAL-with-font-vect-reversed 1.png" alt="">
+        </div>
+    </div>
+</div>
+
+
+<!-- for PDF -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+    integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
+<script src="{% static 'js/initializeCheckboxesFromLocalStorage.js' %}"></script>
+
+<!-- <script type="text/javascript">
+    $(document).ready(function() 
+    { 
+        $('#excel_data').DataTable( 
+        { 
+            dom: 'Blfrtip',
+        } );
+    
+    } );
+    </script> -->
+
+<script src="{% static 'js/table2excel.js' %}"></script>
+<script>
+    var element = document.getElementById('main_for_pdf');
+
+
+    $('#for_pdf').click(
+        function pdf_gen() {
+            html2pdf()
+                .set({
+                    pagebreak: { avoid: 'tr', mode: ['css', 'legacy'] },
+                    margin: 7,
+                    filename: 'Inquiry.pdf',
+                    html2canvas: { scale: 2, logging: true, dpi: 500, letterRendering: true },
+                    jsPDF: { unit: 'mm', format: 'a3', orientation: 'landscape' },
+                })
+                .from(element).save('Inquiry.pdf');
+
+
+        })
+
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; // January is 0
+    var yyyy = today.getFullYear();
+    document.getElementById("date").innerHTML = dd + "/" + mm + "/" + yyyy;
+
+</script>
+
+
+<!-- for PDF -->
+
+
+<script>
+
+
+    $('.checkie').change(function () {
+        var all_compare_ids = $(".hidden_ids").val()
+        var id = $(this).val();
+
+        if (all_compare_ids.length > 0) {
+            all_compare_ids = all_compare_ids.split(",")
+        } else {
+            all_compare_ids = []
+        }
+        if ($(this).is(':checked')) {
+            all_compare_ids.push(id);
+        } else {
+            all_compare_ids.pop(id);
+        }
+        $('.hidden_ids').val(all_compare_ids);
+        $('#all_compare_ids').val(all_compare_ids)
+        onLoadAndChange()
+    })
+
+    function onLoadAndChange() {
+
+
+        if (all_compare_ids.length > 0) {
+            $('.compare_btn').css('display', 'block');
+        } else {
+            $('.compare_btn').css('display', 'none');
+        }
+    }
+
+    $(window).on('load change', onLoadAndChange);
+
+    document.getElementById('download_excel').addEventListener('click', function () {
+        var table2excel = new Table2Excel();
+        table2excel.export(document.querySelectorAll("#excel_data"));
+
+    })
+
+    $(document).ready(function () {
+        $('.increment').click(function (e) {
+            e.preventDefault();
+            var input = $(this).siblings('#default_input');
+            let id_hidden = $(this).siblings('#hidden_input').val()
+            let input2 = $(`.getted_num_${id_hidden}`)
+            var currentValue = parseInt(input.val());
+            input.val(currentValue + 1);
+            input2.html(currentValue + 1)
+
+        });
+
+        $('.decrement').click(function (e) {
+            e.preventDefault();
+            var input = $(this).siblings('#default_input')
+            let id_hidden = $(this).siblings('#hidden_input').val()
+            let input2 = $(`.getted_num_${id_hidden}`)
+            var currentValue = parseInt(input.val());
+            if (currentValue > 1) {
+                input.val(currentValue - 1);
+                input2.html(currentValue - 1)
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const inputOfIds = $("#ForLocalStorageInq")
+
+        if (inputOfIds.val() != '') {
+            const inquiryids = inputOfIds.val().split(",")
+
+            serealizedList = localStorage.setItem('InquiryIds', JSON.stringify(inquiryids))
+
+
+            let myobj_deserialized = JSON.parse(localStorage.getItem("InquiryIds"))
+            console.log(myobj_deserialized, 'Its Inquiry list')
+        } else {
+            console.log('Input element with ID "ForLocalStorage" not found')
+            localStorage.removeItem("InquiryIds")
+        }
+    })
+
+</script>
+
+{% endblock body %}

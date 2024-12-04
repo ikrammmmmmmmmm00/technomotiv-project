@@ -1,0 +1,324 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/product_detail.css' %}">{% endblock css %}
+{% block title %}Product Details{% endblock title %}
+
+{% block body %}
+
+
+    <!-- hero_section -->
+
+        <section class="hero_section">
+            <div class="container">
+                <div class="hs">
+                    <h1>{{product_getted.ref_no}}</h1>
+                    <p>Home >> Catalog >> {{product_getted.ref_no}}</p>
+                </div>
+            </div>
+        </section>
+
+    <!-- hero_section ends-->  
+
+<!-- Assuming product.ref_no is the unique reference number -->
+
+
+
+
+    <!-- new_section -->
+
+        {% comment %} <div class="container">
+            <section class="product_getted">
+                
+                <h3>{{product_getted.ref_no}} | {{product_getted.product_group}}</h3>
+                <div class="row p_detail">
+                    <div class="col-md-4">
+                        <img class="img-fluid" src="{{product_getted.product_img}}" alt="">
+
+                        <table class="table side_table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">OEM Code</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        {% if product_getted.oem_code %}
+                                            {% for code in product_getted.oem_code.split %}
+                                                <div>{{ code }}</div> <!-- No filter, just display as-is -->
+                                            {% endfor %}
+                                        {% else %}
+                                            <div>No OEM Code available</div>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        
+                        
+
+                       
+                    </div>
+                    <div class="col-md-8">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Product group:
+                                </th>
+                                <th scope="col">Position:
+                                </th>
+                                <th scope="col">Quantity per Vehicle:
+                                </th>
+                                <th scope="col">Region:
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{{product_getted.product_group}}</td>
+                                <td>{{product_getted.position}}</td>
+                                <td>{{product_getted.quantity_per_vehicle}}</td>
+                                <td>{{product_getted.region}}</td>
+                            </tr>
+                            </tbody>
+                            <!-- search, code_push, exel function to add data in bulk -->
+                        </table>
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Technical information:</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><h6>Weight:</h6> {{product_getted.weight}} </td>
+                                    <td><h6>Total Length:</h6> {{product_getted.total_length}} </td>
+                                </tr>
+                                <tr>
+                                    <td><h6>Width:</h6> {{product_getted.width}} </td>
+                                    <td><h6>Height:</h6> {{product_getted.height}} </td>
+                                </tr>
+                                <tr>
+                                    <td><h6>Material:</h6> {{product_getted.material}}</td>
+                                    <td><h6>Bolt Matric:</h6> {{product_getted.bolt_matric}}</td>
+                                   
+                                </tr>
+                                <tr>
+                                    <td><h6>log Matric:</h6> {{product_getted.log_metric}}</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Pair Handed:</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{product_getted.pairs_handed}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Make</th>
+                                <th>Model</th>
+                                <th>Year & Body Type</th>
+                            </tr>
+                        </thead>
+                            {% for detail in ref_details %}
+                            <tr>
+                                <td>{{ detail.make.name }}</td>
+                                <td>{{ detail.model.name }}</td>
+                                <td>{{ detail.year_body_type }}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </div>
+            </section>
+        </div> {% endcomment %}
+        <div class="container">
+            <section class="product_getted">
+                <h3>{{ product_getted.ref_no }} | {{ product_getted.product_group }}</h3>
+                <div class="row p_detail">
+                    <div class="col-md-4">
+                        <img class="img-fluid" src="{{ product_getted.product_img }}" alt="">
+        
+                        <table class="table side_table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">OEM Code</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        {% if product_getted.oem_code and product_getted.oem_code != "nan" %}
+                                            {% for code in product_getted.oem_code.split %}
+                                                <div>{{ code }}</div>
+                                            {% endfor %}
+                                        {% else %}
+                                            <div>No OEM Code available</div>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-8">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    {% if product_getted.product_group and product_getted.product_group != "nan" %}
+                                        <th scope="col">Product group:</th>
+                                    {% endif %}
+                                    {% if product_getted.position and product_getted.position != "nan" %}
+                                        <th scope="col">Position:</th>
+                                    {% endif %}
+                                    {% if product_getted.quantity_per_vehicle and product_getted.quantity_per_vehicle != "nan" %}
+                                        <th scope="col">Quantity per Vehicle:</th>
+                                    {% endif %}
+                                    {% if product_getted.region and product_getted.region != "nan" %}
+                                        <th scope="col">Region:</th>
+                                    {% endif %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    {% if product_getted.product_group and product_getted.product_group != "nan" %}
+                                        <td>{{ product_getted.product_group }}</td>
+                                    {% endif %}
+                                    {% if product_getted.position and product_getted.position != "nan" %}
+                                        <td>{{ product_getted.position }}</td>
+                                    {% endif %}
+                                    {% if product_getted.quantity_per_vehicle and product_getted.quantity_per_vehicle != "nan" %}
+                                        <td>{{ product_getted.quantity_per_vehicle }}</td>
+                                    {% endif %}
+                                    {% if product_getted.region and product_getted.region != "nan" %}
+                                        <td>{{ product_getted.region }}</td>
+                                    {% endif %}
+                                </tr>
+                            </tbody>
+                        </table>
+        
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Technical information:</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    {% if product_getted.weight and product_getted.weight != "nan" %}
+                                        <td><h6>Weight:</h6> {{ product_getted.weight }}</td>
+                                    {% endif %}
+                                    {% if product_getted.total_length and product_getted.total_length != "nan" %}
+                                        <td><h6>Total Length:</h6> {{ product_getted.total_length }}</td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    {% if product_getted.width and product_getted.width != "nan" %}
+                                        <td><h6>Width:</h6> {{ product_getted.width }}</td>
+                                    {% endif %}
+                                    {% if product_getted.height and product_getted.height != "nan" %}
+                                        <td><h6>Height:</h6> {{ product_getted.height }}</td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    {% if product_getted.material and product_getted.material != "nan" %}
+                                        <td><h6>Material:</h6> {{ product_getted.material }}</td>
+                                    {% endif %}
+                                    {% if product_getted.bolt_matric and product_getted.bolt_matric != "nan" %}
+                                        <td><h6>Bolt Metric:</h6> {{ product_getted.bolt_matric }}</td>
+                                    {% endif %}
+                                </tr>
+                                {% comment %} <tr>
+                                    {% if product_getted.log_metric %}
+                                        <td><h6>Log Metric:</h6> {{ product_getted.log_metric }}</td>
+                                    {% endif %}
+                                </tr> {% endcomment %}
+                                <tr>
+                                    {% if product_getted.log_metric and product_getted.log_metric != "nan" %}
+                                        <td><h6>Log Metric:</h6> {{ product_getted.log_metric }}</td>
+                                    {% endif %}
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+        
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Pair Handed:</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    {% if product_getted.pairs_handed and product_getted.pairs_handed != "nan" %}
+                                        <td>{{ product_getted.pairs_handed }}</td>
+                                    {% endif %}
+                                </tr>
+                            </tbody>
+                        </table>
+        
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Make</th>
+                                    <th>Model</th>
+                                    <th>Year & Body Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for detail in ref_details %}
+                                    <tr>
+                                        {% if detail.make.name %}
+                                            <td>{{ detail.make.name }}</td>
+                                        {% endif %}
+                                        {% if detail.model.name %}
+                                            <td>{{ detail.model.name }}</td>
+                                        {% endif %}
+                                        {% if detail.year_body_type %}
+                                            <td>{{ detail.year_body_type }}</td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+    <!-- new_section ends -->
+
+
+
+
+{% endblock body %}
+

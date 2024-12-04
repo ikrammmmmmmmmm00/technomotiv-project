@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/comparison_list.css' %}">
+<link rel="stylesheet" href="{% static 'css/product.css' %}">
+{% endblock css %}
+{% block title %}Compare{% endblock title %}
+
+{% block body %}
+
+<section class="hero_section">
+    <div class="container">
+        <div class="hs">
+            <h1>Comparison List</h1>
+            <p>Home >> Comparison List</p>
+        </div>
+    </div>
+</section>
+
+
+<div class="section_2">
+    <div class="container">
+        <h1 class="pt-2">Comparison list</h1>
+        <hr>
+        <div class="row table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col" class="compare_titles">Comparison List</th>
+                        {% if compare_ids == '' %}
+                            <th scope="col">The List Is Empty</th>
+                        {% else %}  
+                            {% for product in all_products %}
+                                <th scope="col">{{product}}</th>
+                            {% endfor %}
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody class="pro_table text-center">
+                    <tr>
+                        <td class="colored_td">
+                           Image
+                        </td>
+                        {% for product in all_products %}
+                            <td class="text-center img-fluid"><img src="{{product.product_img.url}}" alt="">
+                            </td>
+                        {% endfor %}
+
+                    </tr>
+                    <tr>
+                        <td class="colored_td">Product Group</td>
+                        {% for product in all_products %}
+                            <td>{{product.product_group}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td class="colored_td">Make</td>
+                        {% for product in all_products %}
+                            <td>{{product.make}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td class="colored_td">Model</td>
+                        {% for product in all_products %}
+                            <td>{{product.model}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td class="colored_td">Year Body Type</td>
+                        {% for product in all_products %}
+                            <td>{{product.year_body_type}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td class="colored_td">Cross Code</td>
+                        {% for product in all_products %}
+                            <td>{{product.cross_code}}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td class="colored_td">Material</td>
+                        {% for product in all_products %}
+                            <td>{{product.material}}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td class="colored_td">Position</td>
+                        {% for product in all_products %}
+                            <td>{{product.position}}</td>
+                        {% endfor %}
+
+                    </tr>
+
+                    <tr>
+                        <td class="colored_td">Quantity Per Vehicle</td>
+                        {% for product in all_products %}
+                            <td>{{product.quantity_per_vehicle}}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td class="colored_td">Region</td>
+                        {% for product in all_products %}
+                            <td>{{product.region}}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td class="colored_td">Weight</td>
+                        {% for product in all_products %}
+                            <td>{{product.weight}}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td class="colored_td">Length</td>
+                        {% for product in all_products %}
+                            <td>{{product.total_length}}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td class="colored_td">Width</td>
+                        {% for product in all_products %}
+                            <td>{{product.width}}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td class="colored_td">Height</td>
+                        {% for product in all_products %}
+                            <td>{{product.height}}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td class="colored_td">Bolt Metric</td>
+                        {% for product in all_products %}
+                            <td>{{product.bolt_matric}}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td class="colored_td">Pairs (Handed Part)</td>
+                        {% for product in all_products %}
+                            <td>{{product.pairs_handed}}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td class="colored_td">Components</td>
+                        {% for product in all_products %}
+                            <td>
+                                {% for component in product.components.all %}
+                                    {{component}} <br />
+                                {% endfor %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td class="colored_td">Fits</td>
+                        {% for product in all_products %}
+                            <td>{{product.fit_parts}}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td class="colored_td">OEM Code</td>
+                        {% for product in all_products %}
+                            <td>{{product.oem_code}}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td class="colored_td">Notes</td>
+                        {% for product in all_products %}
+                            <td>{{product.notes}}</td>
+                        {% endfor %}                
+                    </tr>
+
+                </tbody>
+ 
+            </table>
+        </div>
+        <div class="back text-end mt-4 compare_page">
+            <form action="" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="comparison_ids" value="{{compare_ids}}" id="ForLocalStorage">
+                <input type="text"  class=" add_new_item text-center"
+                    placeholder="TechnoMotiv ref no." name="comparison_new_ref">
+                <button type="submit" name="quick_add" class="quick_add_btn">Quick Add</button>
+            </form>
+            <form action="" method="post">
+                {% csrf_token %}
+                    <input type="submit" value="Clear Lists" name="clear_lists" class="clear_list_and_back" style="color: #FFF !important;">
+            </form>
+               <a href="{% url 'products:products' %}"><input class="clear_list_and_back" type="button" value="Back"></a>
+
+
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
+
+{% block newScripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const inputOfIds = $("#ForLocalStorage")
+        console.log(inputOfIds,'hehehe')
+        if (inputOfIds.val() != '') {
+            const compareIds = inputOfIds.val().split(",")
+            console.log(compareIds)
+            
+            serealizedList = localStorage.setItem('CompareIds', JSON.stringify(compareIds))
+
+
+            let myobj_deserialized =JSON.parse(localStorage.getItem("CompareIds"))
+            console.log(myobj_deserialized, 'its list')
+        } else {
+            console.log('Input element with ID "ForLocalStorage" not found')
+            localStorage.removeItem("CompareIds")
+        }
+
+
+       
+    })
+    
+</script>
+  
+{% endblock newScripts %}

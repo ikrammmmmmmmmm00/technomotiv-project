@@ -1,0 +1,235 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/index.css' %}">{% endblock css %}
+{% block title %}Landing Page{% endblock title %}
+
+{% block body %}
+
+<!-- hero_section -->
+
+
+<section class="hero_section">
+    <div class="container">
+        <div class="row">
+            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{% static 'assets/images/Rectangle 20.png' %}" class="d-block w-100" alt="...">
+                        <h5>All Major Car Spare Parts are available on our platform 1</h5>
+                    </div>
+                    <div class="carousel-item ">
+                        <img src="{% static 'assets/images/Rectangle 20.png' %}" class="d-block w-100" alt="...">
+                        <h5>All Major Car Spare Parts are available on our platform 2</h5>
+                    </div>
+                    <div class="carousel-item ">
+                        <img src="{% static 'assets/images/Rectangle 20.png' %}" class="d-block w-100" alt="...">
+                        <h5>All Major Car Spare Parts are available on our platform 3</h5>
+                    </div>
+                    <div class="carousel-item ">
+                        <img src="{% static 'assets/images/Rectangle 20.png' %}" class="d-block w-100" alt="...">
+                        <h5>All Major Car Spare Parts are available on our platform 4</h5>
+                    </div>
+                    <div class="carousel-item ">
+                        <img src="{% static 'assets/images/Rectangle 20.png' %}" class="d-block w-100" alt="...">
+                        <h5>All Major Car Spare Parts are available on our platform 5</h5>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                    <div class="navi_btns">
+                        <span aria-hidden="true"><img class="img-fluid" src="{% static 'assets/images/previous_icon.png' %}" alt=""></span>
+                    </div>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                    <div class="navi_btns">
+                        <span aria-hidden="true"><img class="img-fluid" src="{% static 'assets/images/next_icon.png' %}" alt=""></span>
+                    </div>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- hero_section ends -->
+
+
+<!-- section_2 -->
+
+<section class="section_2">
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-auto">
+                <h1 class="headings">Online Product Serach</h1>
+            </div>
+            <div class="col-12">
+                <hr class="hr_line">
+            </div>
+        </div>
+        <form action="{% url 'products:products' %}" method="get">
+            <div class="row justify-content-center all_searches">
+                <div class="col-11 col-md-4">
+                    <div class="search">
+                        <img class="heading_icon" src=" {% static 'assets/images/123.png' %}" alt="">
+                        <input type="text" name="ref_no" placeholder="Technomotiv Ref No.">
+                        <img class="search_icon" src=" {% static 'assets/images/search.png' %}" alt="">
+                    </div>
+                </div>
+                <div class="col-11 col-md-4">
+                    <div class="search">
+                        <input type="text" placeholder="# OEM Code" name="oem_code" style="padding-left: 20px;">
+                        <img class="search_icon" src=" {% static 'assets/images/search.png' %}" alt="">
+                    </div>
+                </div>
+                <div class="col-11 col-md-4">
+                    <div class="search">
+                        <img class="heading_icon" src=" {% static 'assets/images/subtitles.png' %}" alt="">
+                        <input type="text" name="cross_code" placeholder="Cross Code">
+                        <img class="search_icon" src=" {% static 'assets/images/search.png' %}" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center selects">
+                <div class="col-11 col-md-6 sc">
+                    <img src="{% static 'assets/images/minor_crash.png' %}" alt="">
+                    <select class="form-select" aria-label="Default select example" name="make">
+                        <option selected disabled>Make</option>
+                        {% for make in all_makes %}
+                            <option value="{{make.name}}">{{make.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-11 col-md-6 sc">
+                    <img src="{% static 'assets/images/join_inner.png' %}" alt="">
+                    <select class="form-select" aria-label="Default select example" name="model">
+                        <option selected disabled>Product Group</option>
+                        {% for pro_group in all_pro_groups %}
+                            <option>{{pro_group.desc}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row justify-content-evenly bulk_btns">
+                <div class="col-auto text-center search_cls">
+                    <button name="search">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- section_2 ends -->
+
+
+<!-- section_3 -->
+
+<section class="section_3">
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-auto">
+                <h1 class="headings">Product Groups</h1>
+            </div>
+            <div class="col-12">
+                <hr class="hr_line">
+            </div>
+        </div>
+        <div class="row justify-content-evenly repair_cards">
+            <div class="col-md-3">
+                <img class="img-fluid" src="{% static 'assets/images/pro1.png' %}" alt="">
+                <div class="pg_btn">
+                    <button>Ball Join Products</button>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <img class="img-fluid" src="{% static 'assets/images/pro2.png' %}" alt="">
+                <div class="pg_btn">
+                    <button>Steering Susp. Products</button>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <img class="img-fluid" src="{% static 'assets/images/pro3.png' %}" alt="">
+                <div class="pg_btn">
+                    <button>Control Arm Products</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- section_3 ends -->
+
+
+<!-- section_4 -->
+
+<section class="section_4">
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-auto">
+                <h1 class="headings">News</h1>
+            </div>
+            <div class="col-auto">
+                <div class="navigate_btns">
+                    <img src=" {% static 'assets/images/nav_backward.png' %}" alt="">
+                    <img src=" {% static 'assets/images/nav_forward.png' %}" alt="">
+                </div>
+            </div>
+            <div class="col-12">
+                <hr class="hr_line">
+            </div>
+        </div>
+        <div class="row justify-content-evenly repair_cards">
+            <div class="col-md-3 rc">
+                <img class="img-fluid" src="{% static 'assets/images/image 3.png' %}" alt="">
+                <div class="cards_text">
+                    <h3>Lorem Ispum</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur. Penatibus turpis a cum amet adipiscing accumsan eu ipsum. </p>
+                    <a href="">Read More >></a>
+                </div>
+            </div>
+            <div class="col-md-3 rc">
+                <img class="img-fluid" src="{% static 'assets/images/image 4.png' %}" alt="">
+                <div class="cards_text">
+                    <h3>Lorem Ispum</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur. Penatibus turpis a cum amet adipiscing accumsan eu ipsum. </p>
+                    <a href="">Read More >></a>
+                </div>
+            </div>
+            <div class="col-md-3 rc">
+                <img class="img-fluid" src="{% static 'assets/images/image 5.png' %}" alt="">
+                <div class="cards_text">
+                    <h3>Lorem Ispum</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur. Penatibus turpis a cum amet adipiscing accumsan eu ipsum. </p>
+                    <a href="">Read More >></a>
+                </div>
+            </div>
+            <div class="col-md-3 rc">
+                <img class="img-fluid" src="{% static 'assets/images/image 6.png' %}" alt="">
+                <div class="cards_text">
+                    <h3>Lorem Ispum</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur. Penatibus turpis a cum amet adipiscing accumsan eu ipsum. </p>
+                    <a href="">Read More >></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- section_4 ends -->
+
+
+
+
+{% endblock body %}
+
+
+    
