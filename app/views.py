@@ -41,127 +41,12 @@ def NavSearch(request, toSearch):
 
 
 
-# def products(request):
-#     all_products = Product.objects.all()
-#     select_product_groups = Product_group.objects.all()
-#     make = Make.objects.all()
-
-   
-
-#     # Retrieve query parameters
-#     oem_search = request.GET.get('oem_code')
-#     ref_search = request.GET.get('ref_no')
-#     c_code_search = request.GET.get('cross_code')
-#     selected_make = request.GET.get('make')
-#     selected_p_group = request.GET.get('model')
-#     comparison_ids = request.GET.get('comparison_ids')
-#     inquiry_ids = request.GET.get('inquiry_ids')
-#     nav_search = request.GET.get('nav_search')
-
-#     # Navigation search logic
-#     if nav_search:
-#         new_products = NavSearch(request, nav_search)
-#         context = {
-#             'all_products': new_products,
-#             'all_makes': make,
-#             'all_pro_groups': select_product_groups,
-#             'main_groups': MainProductGroup.objects.all(),
-#             'product_groups': Product_group.objects.all(),
-#         }
-#         return render(request, 'product.html', context)
-
-#     # Apply filters based on query parameters
-#     if oem_search:
-#         all_products = all_products.filter(oem_code__contains=oem_search)
-
-
-
-
-#     if selected_make:
-#     # Filter RefDetails by the selected make
-#        filtered_ref_details = RefDetails.objects.filter(make__name__iexact=selected_make)
-
-#     # Retrieve unique product IDs associated with the filtered RefDetails
-#        product_ids = filtered_ref_details.values_list('product_id', flat=True).distinct()
-
-#     # Filter products based on these IDs
-#        all_products = all_products.filter(id__in=product_ids)
-
-#     # Pass the filtered RefDetails to the template
-#        filtered_ref_details = filtered_ref_details.filter(product__in=all_products)
-#     else:
-#     # If no make is selected, retrieve all RefDetails
-#         filtered_ref_details = RefDetails.objects.all()
-
-#     if c_code_search:
-#         all_products = all_products.filter(cross_code__contains=c_code_search)
-
-#     if selected_p_group:
-#         all_products = all_products.filter(product_group__desc=selected_p_group)
-
-#     # Handle POST requests for inquiry or comparison lists
-#     if request.method == 'POST':
-#         context = {}
-        
-#         # Clear inquiry list
-#         if request.POST.get("clear_inquiry_list"):
-#             inquiry_ids = ''
-#             context["inquiry_ids"] = ''
-#             context['all_products'] = []
-#             return render(request, "inquiry_list.html", context)
-        
-#         # Manage inquiry IDs
-#         if request.POST.get("inquiry_ids") or request.POST.get("inquiry_ids") == "":
-#             inquiry_ids = request.POST.get("inquiry_ids").split(",") if request.POST.get("inquiry_ids") else []
-#             checking_comp_ids_in_inquiry = request.POST.get("checking_comp_ids_in_inquiry", "").split(",")
-
-#             # Remove items from inquiry list
-#             if request.POST.get("to_remove_item"):
-#                 product_id = int(request.POST.get("product_id"))
-#                 inquiry_ids = [str(id) for id in inquiry_ids if int(id) != product_id]
-
-#             # Add new references to inquiry list
-#             if request.POST.get("inquiry_new_ref"):
-#                 inquiry_new_ref = request.POST.get("inquiry_new_ref")
-#                 if Product.objects.filter(ref_no=inquiry_new_ref).exists():
-#                     product = Product.objects.get(ref_no=inquiry_new_ref)
-#                     if str(product.id) not in inquiry_ids:
-#                         inquiry_ids.append(str(product.id))
-
-#             # Prepare context for rendering
-#             inquiry_ids = ",".join(inquiry_ids)
-#             context["inquiry_ids"] = inquiry_ids
-#             context['all_products'] = [Product.objects.get(id=id) for id in inquiry_ids] if inquiry_ids else []
-#             context['main_groups'] = MainProductGroup.objects.all()
-#             context['product_groups'] = Product_group.objects.all()
-#             context["checking_comp_ids_in_inquiry"] = checking_comp_ids_in_inquiry
-
-#             return render(request, "inquiry_list.html", context)
-
-#     # Prepare context for rendering products page
-#     context = {
-#     'all_products': all_products,
-#     'filtered_ref_details': filtered_ref_details,  # Pass only relevant RefDetails
-#     'search_1': oem_search or '',
-#     'search_2': ref_search or '',
-#     'search_3': c_code_search or '',
-#     'search_4': selected_make or '',
-#     'search_5': selected_p_group or '',
-#     'all_makes': make,
-#     'all_pro_groups': select_product_groups,
-#     "comparison_ids": comparison_ids or "",
-#     "inquiry_ids": inquiry_ids or "",
-#     'main_groups': MainProductGroup.objects.all(),
-#     'product_groups': Product_group.objects.all(),
-# }
-
-
-#     return render(request, 'product.html', context)
-
 def products(request):
     all_products = Product.objects.all()
     select_product_groups = Product_group.objects.all()
     make = Make.objects.all()
+
+   
 
     # Retrieve query parameters
     oem_search = request.GET.get('oem_code')
@@ -175,42 +60,157 @@ def products(request):
 
     # Navigation search logic
     if nav_search:
-        search_context = NavSearch(request, nav_search)  # Get search context
-        context = {**search_context,  # Merge NavSearch context with the current context
-                   'filtered_ref_details': RefDetails.objects.all(),
-                   'search_1': oem_search or '',
-                   'search_2': ref_search or '',
-                   'search_3': c_code_search or '',
-                   'search_4': selected_make or '',
-                   'search_5': selected_p_group or '',
-                   'comparison_ids': comparison_ids or '',
-                   'inquiry_ids': inquiry_ids or ''}
+        new_products = NavSearch(request, nav_search)
+        context = {
+            'all_products': new_products,
+            'all_makes': make,
+            'all_pro_groups': select_product_groups,
+            'main_groups': MainProductGroup.objects.all(),
+            'product_groups': Product_group.objects.all(),
+        }
         return render(request, 'product.html', context)
 
-    # Apply filters based on query parameters (if no nav_search)
+    # Apply filters based on query parameters
     if oem_search:
         all_products = all_products.filter(oem_code__contains=oem_search)
+
+
+
+
     if selected_make:
-        filtered_ref_details = RefDetails.objects.filter(make__name__iexact=selected_make)
-        product_ids = filtered_ref_details.values_list('product_id', flat=True).distinct()
-        all_products = all_products.filter(id__in=product_ids)
+    # Filter RefDetails by the selected make
+       filtered_ref_details = RefDetails.objects.filter(make__name__iexact=selected_make)
+
+    # Retrieve unique product IDs associated with the filtered RefDetails
+       product_ids = filtered_ref_details.values_list('product_id', flat=True).distinct()
+
+    # Filter products based on these IDs
+       all_products = all_products.filter(id__in=product_ids)
+
+    # Pass the filtered RefDetails to the template
+       filtered_ref_details = filtered_ref_details.filter(product__in=all_products)
+    else:
+    # If no make is selected, retrieve all RefDetails
+        filtered_ref_details = RefDetails.objects.all()
+
     if c_code_search:
         all_products = all_products.filter(cross_code__contains=c_code_search)
+
     if selected_p_group:
         all_products = all_products.filter(product_group__desc=selected_p_group)
 
+    # Handle POST requests for inquiry or comparison lists
+    if request.method == 'POST':
+        context = {}
+        
+        # Clear inquiry list
+        if request.POST.get("clear_inquiry_list"):
+            inquiry_ids = ''
+            context["inquiry_ids"] = ''
+            context['all_products'] = []
+            return render(request, "inquiry_list.html", context)
+        
+        # Manage inquiry IDs
+        if request.POST.get("inquiry_ids") or request.POST.get("inquiry_ids") == "":
+            inquiry_ids = request.POST.get("inquiry_ids").split(",") if request.POST.get("inquiry_ids") else []
+            checking_comp_ids_in_inquiry = request.POST.get("checking_comp_ids_in_inquiry", "").split(",")
+
+            # Remove items from inquiry list
+            if request.POST.get("to_remove_item"):
+                product_id = int(request.POST.get("product_id"))
+                inquiry_ids = [str(id) for id in inquiry_ids if int(id) != product_id]
+
+            # Add new references to inquiry list
+            if request.POST.get("inquiry_new_ref"):
+                inquiry_new_ref = request.POST.get("inquiry_new_ref")
+                if Product.objects.filter(ref_no=inquiry_new_ref).exists():
+                    product = Product.objects.get(ref_no=inquiry_new_ref)
+                    if str(product.id) not in inquiry_ids:
+                        inquiry_ids.append(str(product.id))
+
+            # Prepare context for rendering
+            inquiry_ids = ",".join(inquiry_ids)
+            context["inquiry_ids"] = inquiry_ids
+            context['all_products'] = [Product.objects.get(id=id) for id in inquiry_ids] if inquiry_ids else []
+            context['main_groups'] = MainProductGroup.objects.all()
+            context['product_groups'] = Product_group.objects.all()
+            context["checking_comp_ids_in_inquiry"] = checking_comp_ids_in_inquiry
+
+            return render(request, "inquiry_list.html", context)
+
+    # Prepare context for rendering products page
     context = {
-        'all_products': all_products,
-        'filtered_ref_details': filtered_ref_details,  # Pass only relevant RefDetails
-        'main_groups': MainProductGroup.objects.all(),
-        'product_groups': Product_group.objects.all(),
-        'all_makes': make,
-        'all_pro_groups': select_product_groups,
-        "comparison_ids": comparison_ids or "",
-        "inquiry_ids": inquiry_ids or "",
-    }
+    'all_products': all_products,
+    'filtered_ref_details': filtered_ref_details,  # Pass only relevant RefDetails
+    'search_1': oem_search or '',
+    'search_2': ref_search or '',
+    'search_3': c_code_search or '',
+    'search_4': selected_make or '',
+    'search_5': selected_p_group or '',
+    'all_makes': make,
+    'all_pro_groups': select_product_groups,
+    "comparison_ids": comparison_ids or "",
+    "inquiry_ids": inquiry_ids or "",
+    'main_groups': MainProductGroup.objects.all(),
+    'product_groups': Product_group.objects.all(),
+}
+
 
     return render(request, 'product.html', context)
+
+# def products(request):
+#     all_products = Product.objects.all()
+#     select_product_groups = Product_group.objects.all()
+#     make = Make.objects.all()
+
+#     # Retrieve query parameters
+#     oem_search = request.GET.get('oem_code')
+#     ref_search = request.GET.get('ref_no')
+#     c_code_search = request.GET.get('cross_code')
+#     selected_make = request.GET.get('make')
+#     selected_p_group = request.GET.get('model')
+#     comparison_ids = request.GET.get('comparison_ids')
+#     inquiry_ids = request.GET.get('inquiry_ids')
+#     nav_search = request.GET.get('nav_search')
+
+#     # Navigation search logic
+#     if nav_search:
+#         search_context = NavSearch(request, nav_search)  # Get search context
+#         context = {**search_context,  # Merge NavSearch context with the current context
+#                    'filtered_ref_details': RefDetails.objects.all(),
+#                    'search_1': oem_search or '',
+#                    'search_2': ref_search or '',
+#                    'search_3': c_code_search or '',
+#                    'search_4': selected_make or '',
+#                    'search_5': selected_p_group or '',
+#                    'comparison_ids': comparison_ids or '',
+#                    'inquiry_ids': inquiry_ids or ''}
+#         return render(request, 'product.html', context)
+
+#     # Apply filters based on query parameters (if no nav_search)
+#     if oem_search:
+#         all_products = all_products.filter(oem_code__contains=oem_search)
+#     if selected_make:
+#         filtered_ref_details = RefDetails.objects.filter(make__name__iexact=selected_make)
+#         product_ids = filtered_ref_details.values_list('product_id', flat=True).distinct()
+#         all_products = all_products.filter(id__in=product_ids)
+#     if c_code_search:
+#         all_products = all_products.filter(cross_code__contains=c_code_search)
+#     if selected_p_group:
+#         all_products = all_products.filter(product_group__desc=selected_p_group)
+
+#     context = {
+#         'all_products': all_products,
+#         'filtered_ref_details': filtered_ref_details,  # Pass only relevant RefDetails
+#         'main_groups': MainProductGroup.objects.all(),
+#         'product_groups': Product_group.objects.all(),
+#         'all_makes': make,
+#         'all_pro_groups': select_product_groups,
+#         "comparison_ids": comparison_ids or "",
+#         "inquiry_ids": inquiry_ids or "",
+#     }
+
+#     return render(request, 'product.html', context)
 
 
 from django.http import JsonResponse
