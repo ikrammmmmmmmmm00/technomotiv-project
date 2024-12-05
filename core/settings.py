@@ -24,9 +24,7 @@ SECRET_KEY = 'django-insecure-p^m_)30j47$9e3xfioyy@gf+^6i%2nb%%$)jo4z-0@&y=4w+sf
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = ['44.211.128.45', '127.0.0.1', 'technomotiv.com']
-
+ALLOWED_HOSTS = ['127.0.0.1', '99.79.124.35', 'technomotiv.com']
 
 # Application definition
 
@@ -85,9 +83,10 @@ DATABASES = {
         'USER': 'technomotiv_database_handler',
         'PASSWORD': 'technomotiv_database_handlers_password',
         'HOST': 'localhost',
-        'PORT': ''
+        'PORT': '5432'
     }
 }
+
 
 
 
