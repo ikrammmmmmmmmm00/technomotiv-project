@@ -27,144 +27,79 @@
     </div>
 </section>
 
-<!-- hero_section ends-->
-
-
-<!-- section_2 -->
-{% comment %} <div class="row justify-content-center selects">
-                <div class="col-11 col-md-6 sc">
-                    <img src="{% static 'assets/images/minor_crash.png' %}" alt="">
-                    <select class="form-select" aria-label="Make" name="make" onchange="this.form.submit()">
-                        <option value="" disabled {% if not search_4 %} selected {% endif %}>Make</option>
-                        {% for make in all_makes %}
-                            <option value="{{ make.name }}" {% if search_4 == make.name %} selected {% endif %}>{{ make.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-11 col-md-6 sc">
-                    <img src="{% static 'assets/images/join_inner.png' %}" alt="">
-                    <select class="form-select" aria-label="Default select example" name="model" onchange="this.form.submit()">
-                        <option value="" disabled {% if not search_5 %} selected {% endif %}>Product Group</option>  
-                        {% for pro_group in all_pro_groups %}
-                            <option value="{{ pro_group.desc }}" {% if search_5 == pro_group.desc %} selected {% endif %}>{{ pro_group.desc }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-            </div> {% endcomment %}
-
-
 <section class="section_2">
     <div class="container">
-        <form action="" method="get">
-            {% comment %} <div class="row justify-content-center all_searches">              
-                <div class="col-11 col-md-4">
+       
+            <div class="row justify-content-center selects">              
+                <div class="col-11 col-md-6 sc">
                     <div class="search">
                         <img class="heading_icon" src="{% static 'assets/images/123.png' %}" alt="">
-                        <input class="search_input" type="text" name="ref_no" value="{{search_2}}" placeholder="Technomotiv Ref No.">
-                        <img class="search_icon" src="{% static 'assets/images/search.png' %}" alt="">
-                    </div>
-                </div>
-                <div class="col-11 col-md-4">
-                    <div class="search">
-                        <input class="search_input" type="text" name="oem_code" value="{{search_1}}" placeholder="# OEM Code"
-                            style="padding-left: 20px;">
-                        <img class="search_icon" src="{% static 'assets/images/search.png' %}" alt="">
-                    </div>
-                </div>
-                <div class="col-11 col-md-4">
-                    <div class="search">
-                        <img class="heading_icon" src="{% static 'assets/images/subtitles.png' %}" alt="">
-                        <input class="search_input" type="text" name="cross_code" value="{{search_3}}" placeholder="Cross Code">
-                        <img class="search_icon" src="{% static 'assets/images/search.png' %}" alt="">
-                    </div>
-                </div>
-            </div> {% endcomment %}
-            <div class="row justify-content-center selects">
-                <!-- Make Dropdown -->
-                <form id="filterForm" method="GET">
-                    <div class="col-11 col-md-6 sc">
-                        <img src="{% static 'assets/images/minor_crash.png' %}" alt="">
-                        <select
-                            class="form-select"
-                            name="make"
-                            id="makeDropdown"
-                            onchange="document.getElementById('filterForm').submit()"
+                        <input 
+                            class="search_input" 
+                            type="text" 
+                            name="ref_no" 
+                            id="refNoSearch" 
+                            placeholder="Technomotiv Ref No."
                         >
-                            <option value="" disabled {% if not search_4 %} selected {% endif %}>Make</option>
-                            {% for make in all_makes %}
-                                <option value="{{ make.name }}" {% if search_4 == make.name %} selected {% endif %}>
-                                    {{ make.name }}
-                                </option>
-                            {% endfor %}
-                        </select>
+                        <img class="search_icon" src="{% static 'assets/images/search.png' %}" alt="">
                     </div>
-                </form>
-                
-                
-                
-            
-                <!-- Model Dropdown -->
-                <div class="col-11 col-md-6 sc">
-                    <img src="{% static 'assets/images/join_inner.png' %}" alt="">
-                    <select class="form-select" name="model" id="modelDropdown" onchange="fetchYears()">
-                        <option value="" disabled selected>Select Model</option>
-                    </select>
+                    
                 </div>
-           
-            
-              <div class="row justify-content-center">
-                  <!-- Year Dropdown -->
-                  <div class="col-11 col-md-6 sc">
-                      <img src="{% static 'assets/images/join_inner.png' %}" alt="">
-                      <select class="form-select" name="year_body_type" id="yearDropdown">
-                          <option value="" disabled selected>Select Year/Body Type</option>
-                      </select>
-                  </div>
-              </div>
-          </div>
-            
-            
-            {% comment %} <div class="row justify-content-center selects">
-                <div class="col-11 col-md-6 sc">
-                    <img src="{% static 'assets/images/minor_crash.png' %}" alt="">
-                    <select class="form-select" aria-label="Make" name="make" id="makeDropdown" onchange="this.form.submit()" >
-                      <option value="" disabled {% if not search_4 %} selected {% endif %}>Make</option>
-                        {% for make in all_makes %}
-                      <option value="{{ make.name }}" {% if search_4 == make.name %} selected {% endif %}>{{ make.name }}</option>
-                        {% endfor %}
-                    </select>
 
-                </div>
                 <div class="col-11 col-md-6 sc">
-                    <img src="{% static 'assets/images/join_inner.png' %}" alt="">
-                    <select class="form-select" aria-label="Default select example" name="model_group" onchange="this.form.submit()">
-                        <option value="" disabled {% if not search_5 %} selected {% endif %}>Product Group</option>
-                        {% for pro_group in all_pro_groups %}
-                            <option value="{{ pro_group.desc }}" {% if search_5 == pro_group.desc %} selected {% endif %}>{{ pro_group.desc }}</option>
-                        {% endfor %}
-                    </select>
+
+                    <div class="search">
+                        <input class="search_input" type="text" id="oemCodeSearch" placeholder="# OEM Code" style="padding-left: 20px;">
+                        <img class="search_icon" src="{% static 'assets/images/search.png' %}" alt="">
+                    </div>
+                    
                 </div>
+               
+            </div> 
+        
+
+        <div class="row justify-content-center selects">
+            <!-- Make Dropdown -->
+            <div class="col-11 col-md-6 sc">
+                <img src="{% static 'assets/images/minor_crash.png' %}" alt="">
+                <select class="form-select" name="make" id="makeDropdown" onchange="fetchModels()">
+                    <option value="" disabled selected>Make</option>
+                    {% for make in all_makes %}
+                        <option value="{{ make.id }}">{{ make.name }}</option>
+                    {% endfor %}
+                </select>
             </div>
-            
-            <!-- Hidden div -->
-            
-    
-<div id="dynamic-selects" >
-    <div class="col-11 col-md-6 sc">
-        <img src="{% static 'assets/images/join_inner.png' %}" alt="">
-        <select class="form-select" id="model-select" name="model" id="model-select" onchange="this.form.submit()">
-            <option value="" disabled selected>Select Model</option>
-        </select>
-    </div>
-    <div class="col-11 col-md-6 sc">
-        <img src="{% static 'assets/images/join_inner.png' %}" alt="">
-        <select class="form-select" id="year-body-type-select" name="year_body_type"  onchange="this.form.submit()" >
-            <option value=""  selected>Select Year/Body Type</option>
-        </select>
-    </div>
-</div> {% endcomment %}
 
-            
+            <div class="col-11 col-md-6 sc">
+                <img src="{% static 'assets/images/join_inner.png' %}" alt="">
+                <select class="form-select" aria-label="Default select example" name="model_group" onchange="this.form.submit()">
+                    <option value="" disabled {% if not search_5 %} selected {% endif %}>Product Group</option>
+                    {% for pro_group in all_pro_groups %}
+                        <option value="{{ pro_group.desc }}" {% if search_5 == pro_group.desc %} selected {% endif %}>{{ pro_group.desc }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="row justify-content-center selects">
+            <!-- Model Dropdown -->
+            <div class="col-11 col-md-6 sc" id="modelContainer" style="display: none;">
+                <img src="{% static 'assets/images/join_inner.png' %}" alt="">
+                <select class="form-select" name="model" id="modelDropdown" onchange="fetchYearsAndEnable()">
+                    <option value="" disabled selected>Select Model</option>
+                </select>
+            </div>
+        
+            <!-- Year/Body Type Dropdown -->
+            <div class="col-11 col-md-6 sc" id="yearContainer" style="display: none;">   
+                <img src="{% static 'assets/images/join_inner.png' %}" alt="">
+                <select class="form-select" name="year_body_type" id="yearDropdown" disabled>
+                    <option value="" disabled selected>Select Year/Body Type</option>
+                </select>
+            </div>
+        </div>
+       
+
             <input type="hidden" value="{{ comparison_ids }}" class="hidden_ids" name="comparison_ids">
             <input type="hidden" class="inquiry_ids" value="{{ inquiry_ids }}" name="inquiry_ids">
             <div class="row justify-content-evenly bulk_btns">
@@ -178,13 +113,8 @@
 </section>
 
 <section class="section_3">
-   
-
-    <div class="container">
+   <div class="container">
         <div class="row table-responsive">
-           
-
-
             <table id="main_table" class="table table-bordered table">
                 <thead>
                     <tr>
@@ -199,51 +129,6 @@
                         <th scope="col">Compare Inquiry List</th>
                     </tr>
                 </thead>
-
-                {% comment %} <tbody class="text-center pro_table" id="tbody_products">
-                    {% for product in all_products %} 
-                        {% with filtered_ref_details|dictsort:"product_id" as sorted_details %}
-                            {% for detail in sorted_details %}
-                                {% if detail.product_id == product.id %}
-                                    <tr>
-                                        <td>
-                                            <a href="{% url 'products:product_details' product.ref_no %}">
-                                                <img src="{{ product.product_img }}" width="59" height="44" alt="{{ product.ref_no }}" />
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="{% url 'products:product_details' product.ref_no %}">{{ product.ref_no }}</a>
-                                        </td>
-                                        <td>
-                                            <a href="{% url 'products:product_details' product.ref_no %}">{{ product.product_group.desc }}</a>
-                                        </td>
-                                        <td>{{ detail.make.name }}</td>
-                                        <td>{{ detail.model.name }}</td>
-                                        <td>{{ detail.year_body_type }}</td>
-                                        <td>{{ product.position }}</td>
-                                        <td>{{ product.oem_code }}</td>
-                                        <td>
-                                            <input type="hidden" value="{{ product.id }}" id="item_id">
-                                            <div id="Compare_items">
-                                                <input type="checkbox" value="{{ product.id }}" class="checkie" id="{{ product.id }}">
-                                                <label for="{{ product.id }}">Compare</label>
-                                            </div>
-                                            <div id="inquiry_list">
-                                                <input type="checkbox" value="{{ product.id }}" class="inkie" id="i_{{ product.id }}">
-                                                <label for="i_{{ product.id }}">Inquiry List</label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                {% endif %}
-                            {% endfor %}
-                        {% endwith %}
-                    {% empty %}
-                        <tr>
-                            <td colspan="9" class="text-center">Sorry, We don't have any products</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>    {% endcomment %}
-
                 <tbody class="text-center pro_table" id="tbody_products">
                     {% for product in all_products %}
                         {% with filtered_ref_details as sorted_details %}
@@ -295,15 +180,8 @@
                     {% endfor %}
                 </tbody>
                 
-
-            </table>
-        </div>
-    </div>
-</section>
-
-
- {% comment %} <tbody class="text-center pro_table" id="tbody_products">
-                    {% for product in all_products %}
+                {% comment %} <tbody class="text-center pro_table" id="tbody_products">
+                    {% for product in all_products %} 
                         {% with filtered_ref_details|dictsort:"product_id" as sorted_details %}
                             {% for detail in sorted_details %}
                                 {% if detail.product_id == product.id %}
@@ -319,9 +197,9 @@
                                         <td>
                                             <a href="{% url 'products:product_details' product.ref_no %}">{{ product.product_group.desc }}</a>
                                         </td>
-                                        <td>{{ detail.make.name }}</td> 
-                                        <td>{{ detail.model.name }}</td> 
-                                        <td>{{ detail.year_body_type }}</td> 
+                                        <td>{{ detail.make.name }}</td>
+                                        <td>{{ detail.model.name }}</td>
+                                        <td>{{ detail.year_body_type }}</td>
                                         <td>{{ product.position }}</td>
                                         <td>{{ product.oem_code }}</td>
                                         <td>
@@ -344,93 +222,16 @@
                             <td colspan="9" class="text-center">Sorry, We don't have any products</td>
                         </tr>
                     {% endfor %}
-                </tbody>  inside teh tbody {% endcomment %}
+                </tbody>    {% endcomment %}
 
+              
 
-
-
-
-
-
- {% comment %} <section class="section_3"> 
-    <div class="container">
-        <div class="row table-responsive">
-            <table id="main_table" class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col">Product Image</th>
-                        <th scope="col">Technomotive Ref No</th>
-                        <th scope="col">Product Group</th>
-                        <th scope="col">Make</th>
-                        <th scope="col">Model</th>
-                        <th scope="col">Year & Body Type</th>
-                        <th scope="col">Position</th>
-                        <th scope="col">OEM Code</th>
-                        <th scope="col">Compare Inquiry List</th>
-                    </tr>
-                </thead>
-                <tbody class="text-center pro_table" id="tbody_products">
-                    {% for product in all_products %}
-                    <tr class="text-center">
-                        <td>
-                            <a href="{% url 'products:product_details' product.ref_no %}">
-                                <img src="https://onedrive.live.com/embed?resid=44F02735E1FD0D2B%21254201&authkey=%21AJVFimzzuDIGbtg&width=211&height=121" 
-                                     width="59" 
-                                     height="44" />
-                            </a>
-                        </td>
-                        <td>
-                            <a href="{% url 'products:product_details' product.ref_no %}">{{ product.ref_no }}</a>
-                        </td>
-                        <td>
-                            <a href="{% url 'products:product_details' product.ref_no %}">{{ product.product_group.desc }}</a>
-                        </td>
-                        <td>
-                            {% if product.ref_details.all %}
-                                <a href="{% url 'products:product_details' product.ref_no %}">{{ product.ref_details.first.make.name }}</a>
-                            {% endif %}
-                        </td>
-                        <td>
-                            {% if product.ref_details.all %}
-                                <a href="{% url 'products:product_details' product.ref_no %}">{{ product.ref_details.first.model.name }}</a>
-                            {% endif %}
-                        </td>
-                        <td>
-                            {% if product.ref_details.all %}
-                                <a href="{% url 'products:product_details' product.ref_no %}">{{ product.ref_details.first.year_body_type }}</a>
-                            {% endif %}
-                        </td>
-                        <td>
-                            <a href="{% url 'products:product_details' product.ref_no %}">{{ product.position }}</a>
-                        </td>
-                        <td>
-                            <a href="{% url 'products:product_details' product.ref_no %}">{{ product.oem_code }}</a>
-                        </td>
-                      
-                        <td>
-                            <input type="hidden" value="{{ product.id }}" id="item_id">
-                            <div id="Compare_items">
-                                <input type="checkbox" value="{{ product.id }}" class="checkie" id="{{ product.id }}">
-                                <label for="{{ product.id }}">Compare</label>
-                            </div>
-                            <div id="inquiry_list">
-                                <input type="checkbox" value="{{ product.id }}" class="inkie" id="i_{{ product.id }}">
-                                <label for="i_{{ product.id }}">Inquiry List</label>
-                            </div>
-                        </td>
-                    </tr>
-                    {% empty %}
-                        <h3 class="text-center">Sorry, We don't Have this Item</h3>
-                    {% endfor %}
-                </tbody>  
-
-                
-                
-                
             </table>
         </div>
     </div>
-</section>  {% endcomment %}
+</section>
+
+
 
  
 
@@ -636,12 +437,11 @@
 
     {% comment %} ikram {% endcomment %}
     
-    function fetchModels() {
+    {% comment %} function fetchModels() {
         const makeId = document.getElementById("makeDropdown").value;
         const modelDropdown = document.getElementById("modelDropdown");
         const yearDropdown = document.getElementById("yearDropdown");
     
-        // Clear existing options
         modelDropdown.innerHTML = '<option value="" disabled selected>Loading...</option>';
         yearDropdown.innerHTML = '<option value="" disabled selected>Select Year/Body Type</option>';
     
@@ -656,7 +456,7 @@
             .catch(error => console.error("Error fetching models:", error));
     }
     
-    function fetchYears() {
+    function fetchYearsAndBodyTypes() {
         const modelId = document.getElementById("modelDropdown").value;
         const yearDropdown = document.getElementById("yearDropdown");
     
@@ -669,22 +469,223 @@
                 data.years.forEach(year => {
                     yearDropdown.innerHTML += `<option value="${year}">${year}</option>`;
                 });
+                data.body_types.forEach(type => {
+                    yearDropdown.innerHTML += `<option value="${type}">${type}</option>`;
+                });
             })
-            .catch(error => console.error("Error fetching years:", error));
+            .catch(error => console.error("Error fetching years and body types:", error));
+    } {% endcomment %}
+    
+    
+
+
+    // Show Model and Year dropdowns when Make is selected
+    function fetchModels() {
+        const makeDropdown = document.getElementById("makeDropdown");
+        const modelContainer = document.getElementById("modelContainer");
+        const modelDropdown = document.getElementById("modelDropdown");
+        const yearContainer = document.getElementById("yearContainer");
+        const yearDropdown = document.getElementById("yearDropdown");
+
+        if (makeDropdown.value) {
+            // Show both model and year containers
+            modelContainer.style.display = "block";
+            yearContainer.style.display = "block";
+
+            // Enable model dropdown and reset year dropdown
+            modelDropdown.disabled = false;
+            yearDropdown.disabled = true;
+            yearDropdown.innerHTML = '<option value="" disabled selected>Select Year/Body Type</option>';
+
+            // Fetch models
+            modelDropdown.innerHTML = '<option value="" disabled selected>Loading...</option>';
+            fetch(`/get-models/${makeDropdown.value}/`)
+                .then(response => response.json())
+                .then(data => {
+                    modelDropdown.innerHTML = '<option value="" disabled selected>Select Model</option>';
+                    data.models.forEach(model => {
+                        modelDropdown.innerHTML += `<option value="${model.id}">${model.name}</option>`;
+                    });
+                })
+                .catch(error => console.error("Error fetching models:", error));
+        } else {
+            // Hide both dropdowns if no make is selected
+            modelContainer.style.display = "none";
+            yearContainer.style.display = "none";
+        }
     }
 
+    // Enable Year dropdown and fetch years when Model is selected
+    function fetchYearsAndEnable() {
+        const modelDropdown = document.getElementById("modelDropdown");
+        const yearDropdown = document.getElementById("yearDropdown");
+
+        if (modelDropdown.value) {
+            // Enable the year dropdown
+            yearDropdown.disabled = false;
+
+            // Fetch years
+            yearDropdown.innerHTML = '<option value="" disabled selected>Loading...</option>';
+            fetch(`/get-years/${modelDropdown.value}/`)
+                .then(response => response.json())
+                .then(data => {
+                    yearDropdown.innerHTML = '<option value="" disabled selected>Select Year/Body Type</option>';
+                    data.years.forEach(year => {
+                        yearDropdown.innerHTML += `<option value="${year}">${year}</option>`;
+                    });
+                })
+                .catch(error => console.error("Error fetching years:", error));
+        } else {
+            // Reset the year dropdown if no model is selected
+            yearDropdown.disabled = true;
+            yearDropdown.innerHTML = '<option value="" disabled selected>Select Year/Body Type</option>';
+        }
+    }
+
+
+
+    function updateTable() {
+        const makeId = document.getElementById("makeDropdown").value;
+        const modelId = document.getElementById("modelDropdown").value;
+        const yearBodyType = document.getElementById("yearDropdown").value;
+    
+        const queryParams = new URLSearchParams({
+            make: makeId,
+            model: modelId,
+            year_body_type: yearBodyType
+        }).toString();
+    
+        fetch(`/products/?${queryParams}`, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById("tbody_products").innerHTML = data.html;
+            })
+            .catch(error => console.error("Error updating table:", error));
+    } 
+
+  
+    function searchTable(refNo) {
+        const tableBody = document.getElementById("tbody_products");
+    
+        fetch(`/search-products/?ref_no=${refNo}`)
+            .then(response => response.json())
+            .then(data => {
+                tableBody.innerHTML = ""; // Clear the current table content
+                if (data.products.length > 0) {
+                    data.products.forEach(product => {
+                        tableBody.innerHTML += `
+                            <tr>
+                                <td>
+                                    <a href="/product-details/${product.ref_no}">
+                                        <img src="${product.product_img}" width="59" height="44" alt="${product.ref_no}" />
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="/product-details/${product.ref_no}">${product.ref_no}</a>
+                                </td>
+                                <td>${product.product_group}</td>
+                                <td>${product.make}</td>
+                                <td>${product.model}</td>
+                                <td>${product.year_body_type}</td>
+                                <td>${product.position}</td>
+                                <td>${product.oem_code}</td>
+                                <td>
+                                    <input type="checkbox" value="${product.id}" class="checkie" id="${product.id}">
+                                    <label for="${product.id}">Compare</label>
+                                    <input type="checkbox" value="${product.id}" class="inkie" id="i_${product.id}">
+                                    <label for="i_${product.id}">Inquiry List</label>
+                                </td>
+                            </tr>`;
+                    });
+                } else {
+                    tableBody.innerHTML = `
+                        <tr>
+                            <td colspan="9" class="text-center">No matching products found</td>
+                        </tr>`;
+                }
+            })
+            .catch(error => console.error("Error fetching filtered products:", error));
+    }
+
+    document.getElementById("refNoSearch").addEventListener("input", function () {
+        const refNo = this.value;
+        searchTable(refNo);
+    });
+    
+    function searchByOem(oemCode) {
+        const tableBody = document.getElementById("tbody_products");
+    
+        fetch(`/search-products-by-oem/?oem_code=${oemCode}`)
+            .then(response => response.json())
+            .then(data => {
+                tableBody.innerHTML = ""; // Clear the current table content
+                if (data.products.length > 0) {
+                    data.products.forEach(product => {
+                        tableBody.innerHTML += `
+                            <tr>
+                                <td>
+                                    <a href="/product-details/${product.ref_no}">
+                                        <img src="${product.product_img}" width="59" height="44" alt="${product.ref_no}" />
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="/product-details/${product.ref_no}">${product.ref_no}</a>
+                                </td>
+                                <td>${product.product_group}</td>
+                                <td>${product.make}</td>
+                                <td>${product.model}</td>
+                                <td>${product.year_body_type}</td>
+                                <td>${product.position}</td>
+                                <td>${product.oem_code}</td>
+                                <td>
+                                    <input type="checkbox" value="${product.id}" class="checkie" id="${product.id}">
+                                    <label for="${product.id}">Compare</label>
+                                    <input type="checkbox" value="${product.id}" class="inkie" id="i_${product.id}">
+                                    <label for="i_${product.id}">Inquiry List</label>
+                                </td>
+                            </tr>`;
+                    });
+                } else {
+                    tableBody.innerHTML = `
+                        <tr>
+                            <td colspan="9" class="text-center">No matching products found</td>
+                        </tr>`;
+                }
+            })
+            .catch(error => console.error("Error fetching filtered products:", error));
+    }
+    
+    document.getElementById("oemCodeSearch").addEventListener("input", function () {
+        const oemCode = this.value;
+        searchByOem(oemCode);
+    });
+    
+
+    
+    
+    
+    
+    // Attach event listeners to dropdowns
+    document.getElementById("makeDropdown").addEventListener("change", updateTable);
+    document.getElementById("modelDropdown").addEventListener("change", updateTable);
+    document.getElementById("yearDropdown").addEventListener("change", updateTable);
     
     
 </script>
 <script>
-    function submitForm() {
+    {% comment %} function submitForm() {
         const form = document.getElementById('filterForm');
         if (form) {
             form.submit();
         } else {
             console.error("Form with ID 'filterForm' not found.");
         }
-    }
+    } {% endcomment %}
 </script>
 
 

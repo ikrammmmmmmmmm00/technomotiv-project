@@ -1,0 +1,42 @@
+<tbody class="text-center pro_table" id="tbody_products">
+    {% for product in all_products %}
+        {% with filtered_ref_details as sorted_details %}
+            {% for detail in sorted_details %}
+                {% if detail.product_id == product.id %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'products:product_details' product.ref_no %}">
+                                <img src="{{ product.product_img }}" width="59" height="44" alt="{{ product.ref_no }}" />
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{% url 'products:product_details' product.ref_no %}">{{ product.ref_no }}</a>
+                        </td>
+                        <td>
+                            <a href="{% url 'products:product_details' product.ref_no %}">{{ product.product_group.desc }}</a>
+                        </td>
+                        <td>{{ detail.make.name }}</td>
+                        <td>{{ detail.model.name }}</td>
+                        <td>{{ detail.year_body_type }}</td>
+                        <td>{{ product.position }}</td>
+                        <td>{{ product.oem_code }}</td>
+                        <td>
+                            <div id="Compare_items">
+                                <input type="checkbox" value="{{ product.id }}" class="checkie" id="{{ product.id }}">
+                                <label for="{{ product.id }}">Compare</label>
+                            </div>
+                            <div id="inquiry_list">
+                                <input type="checkbox" value="{{ product.id }}" class="inkie" id="i_{{ product.id }}">
+                                <label for="i_{{ product.id }}">Inquiry List</label>
+                            </div>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        {% endwith %}
+    {% empty %}
+        <tr>
+            <td colspan="9" class="text-center">Sorry, We don't have any products</td>
+        </tr>
+    {% endfor %}
+</tbody>
